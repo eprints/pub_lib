@@ -3,6 +3,6 @@ name: "Research Publications"
 includes:
   - flavours/pub_lib
   - ingredients/bazaar
-  - ingredents/prototypejs
-  - ingredients/richtext
   - ingredients/easy_pages
+  - ingredients/prototypejs
+  - ingredients/richtext

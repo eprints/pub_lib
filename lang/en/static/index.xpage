@@ -48,7 +48,7 @@
         <div class="fs-2 text-body-emphasis" id="browse-repository">
           Browse Repository
         </div>
-	<div>
+        <div>
 Browse the items in the repository by <a href="/view/year/">year</a>, <a href="/view/subjects/">subject</a>, <a href="/view/divisions/">division</a> or <a href="/view/creators/">author</a>.
 	</div>
         <a href="{$config{rel_path}}/view" class="icon-link mt-2">
@@ -89,6 +89,11 @@ Browse the items in the repository by <a href="/view/year/">year</a>, <a href="/
         </a>
       </div>
     </div>
+    <hr class="d-none d-md-block mt-3 mb-4"/>
+    <div id="fplatest"/>
+    <script type="text/javascript">
+      new Ajax.Updater( 'fplatest', '/cgi/latest_tool', { parameters:"mode=fplatest&amp;mainonly=yes"});
+    </script>
     <div class="alert alert-dark mt-5" role="alert"><epc:phrase ref="archive_name"/> supports <a href="https://www.openarchives.org"><abbr title="Open Archives Protocol for Metadata Harvesting v2.0">OAI 2.0</abbr></a> with a base URL of <a href="{$config{perl_url}}/oai2" style="color: #0027ff;font-size: .875em;word-wrap: break-word;"><epc:print expr="$config{perl_url}"/>/oai2</a>
 </div>
 

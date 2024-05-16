@@ -130,10 +130,33 @@ push @{$c->{fields}->{eprint}},
 	type => 'set',
 	options => [qw(
 		published
+		published_online
+		accepted
 		submitted
 		completed
 	)],
 	input_style => 'medium',
+},
+
+{
+	name => 'dates',
+	type => 'compound',
+	multiple => 1,
+	fields => [
+		{ 
+			sub_name => 'date',
+			type => 'date',
+			min_resolution => 'month',
+			required => 1
+		},
+		{
+			sub_name => 'date_type',
+			type => 'set',
+			options => [qw( published published_online accepted submitted completed )],
+			required => 1
+		},
+	],
+	input_boxes => 1
 },
 
 {

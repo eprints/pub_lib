@@ -44,6 +44,50 @@ $c->{set_eprint_automatic_fields} = sub
 	$eprint->set_value( "full_text_status", $textstatus );
 };
 
+# To prevent citations, exports etc. from breaking, populate the default 'date' and 'date_type'
+# fields using a suitable value from the new 'dates' field
+$c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
+{
+	my( %args ) = @_;
+	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
+
+	# trigger is global - check that current repository actually has datesdatesdates enabled
+	return unless $eprint->dataset->has_field( "dates" );
+	
+	# if this is an existing record, or a new record that has been imported, initialise
+	# the 'dates' field first
+	if( !$changed->{dates_date} && !$eprint->is_set( "dates" ) && $eprint->is_set( "date" ) )
+	{
+		$eprint->set_value( "dates", [
+			{
+				date => $eprint->value( "date" ),
+				date_type => $eprint->value( "date_type" ),
+			}
+		]);
+	}
+
+	# set a suitable 'date' and 'date_type' value
+	# use published date for preference - if not available use accepted date, and so on
+	my %priority = (
+		published => 1,
+		published_online => 2,
+		accepted => 3,
+		submitted => 4,
+		completed => 5,
+		default => 99,
+	);
+
+	my @dates = sort {
+		$priority{$a->{date_type}||"default"} <=> $priority{$b->{date_type}||"default"}
+	} @{ $eprint->value( "dates" ) };
+
+	my $date = scalar @dates ? $dates[0]->{date} : undef;
+	my $date_type = scalar @dates ? $dates[0]->{date_type} : undef;
+
+	$eprint->set_value( "date", $date );
+	$eprint->set_value( "date_type", $date_type );
+
+}, id => 'update_date_and_date_type_fields', priority => 100 );
 
 =head1 COPYRIGHT
 

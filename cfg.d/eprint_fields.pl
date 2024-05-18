@@ -156,7 +156,7 @@ push @{$c->{fields}->{eprint}},
 			required => 1
 		},
 	],
-	input_boxes => 1
+	input_boxes => 1,
 },
 
 {

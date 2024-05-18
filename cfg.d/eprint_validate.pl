@@ -89,45 +89,45 @@ $c->add_trigger( EPrints::Const::EP_TRIGGER_VALIDATE_FIELD, sub
 
 # Validation - check that articles and conference items have a full acceptance date
 # relevant to UK institutions to help comply with HEFCE Open Access guidelines
-$c->add_trigger( EPrints::Const::EP_TRIGGER_VALIDATE_FIELD, sub
-{
-	my( %args ) = @_;
-	my( $repo, $field, $eprint, $value, $problems ) = @args{qw( repository field dataobj value problems )};
-
-	return unless $field->name eq "dates_date";
-	return unless $eprint->value( "type" ) eq "article" || $eprint->value( "type" ) eq "conference_item";
-
-	my $seen = 0;
-	my $comp = 0;
-	for( @{ $eprint->value( "dates" ) } )
-	{
-		next unless $_->{date_type} eq "accepted";
-		$seen = 1;
-		$comp = 1 if $_->{date} =~ /^\d{4}-\d{2}-\d{2}$/;
-		last;
-	}
-
-	if( !$seen )
-	{
-		my $parent = $field->get_property( "parent" );
-		my $fieldname = $repo->xml->create_element( "span", class=>"ep_problem_field:".$parent->get_name );
-		$fieldname->appendChild( $parent->render_name( $repo ) );
-		push @$problems, $repo->html_phrase( "validate:datesdatesdates:missing_accepted_date",
-			fieldname => $fieldname,
-		);
-	}
-
-	if( $seen && !$comp )
-	{
-		my $parent = $field->get_property( "parent" );
-		my $fieldname = $repo->xml->create_element( "span", class=>"ep_problem_field:".$parent->get_name );
-		$fieldname->appendChild( $parent->render_name( $repo ) );
-		push @$problems, $repo->html_phrase( "validate:datesdatesdates:incomplete_accepted_date",
-			fieldname => $fieldname,
-		);
-	}
-
-}, id => 'dates_date_type_accepted_required', priority => 100 );
+#$c->add_trigger( EPrints::Const::EP_TRIGGER_VALIDATE_FIELD, sub
+#{
+#	my( %args ) = @_;
+#	my( $repo, $field, $eprint, $value, $problems ) = @args{qw( repository field dataobj value problems )};
+#
+#	return unless $field->name eq "dates_date";
+#	return unless $eprint->value( "type" ) eq "article" || $eprint->value( "type" ) eq "conference_item";
+#
+#	my $seen = 0;
+#	my $comp = 0;
+#	for( @{ $eprint->value( "dates" ) } )
+#	{
+#		next unless $_->{date_type} eq "accepted";
+#		$seen = 1;
+#		$comp = 1 if $_->{date} =~ /^\d{4}-\d{2}-\d{2}$/;
+#		last;
+#	}
+#
+#	if( !$seen )
+#	{
+#		my $parent = $field->get_property( "parent" );
+#		my $fieldname = $repo->xml->create_element( "span", class=>"ep_problem_field:".$parent->get_name );
+#		$fieldname->appendChild( $parent->render_name( $repo ) );
+#		push @$problems, $repo->html_phrase( "validate:datesdatesdates:missing_accepted_date",
+#			fieldname => $fieldname,
+#		);
+#	}
+#
+#	if( $seen && !$comp )
+#	{
+#		my $parent = $field->get_property( "parent" );
+#		my $fieldname = $repo->xml->create_element( "span", class=>"ep_problem_field:".$parent->get_name );
+#		$fieldname->appendChild( $parent->render_name( $repo ) );
+#		push @$problems, $repo->html_phrase( "validate:datesdatesdates:incomplete_accepted_date",
+#			fieldname => $fieldname,
+#		);
+#	}
+#
+#}, id => 'dates_date_type_accepted_required', priority => 100 );
 
 =head1 COPYRIGHT
 

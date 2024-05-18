@@ -50,10 +50,10 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 {
 	my( %args ) = @_;
 	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
-
-	# trigger is global - check that current repository actually has datesdatesdates enabled
-	return unless $eprint->dataset->has_field( "dates" );
 	
+	# trigger is global - check that current repository actually has all expected date fields
+	return unless $eprint->dataset->has_field( "dates" ) && $eprint->dataset->has_field( "date" ) && $eprint->dataset->has_field( "date_type" );
+
 	# if this is an existing record, or a new record that has been imported, initialise
 	# the 'dates' field first
 	if( !$changed->{dates_date} && !$eprint->is_set( "dates" ) && $eprint->is_set( "date" ) )
@@ -77,6 +77,7 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 		default => 99,
 	);
 
+	return unless $eprint->is_set( "dates" );
 	my @dates = sort {
 		$priority{$a->{date_type}||"default"} <=> $priority{$b->{date_type}||"default"}
 	} @{ $eprint->value( "dates" ) };

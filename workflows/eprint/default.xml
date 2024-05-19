@@ -109,6 +109,7 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
       </epc:if>
       <epc:if test="type = 'book'">
         <field ref="dates"/>
+        <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
         <field ref="pages"/>
         <field ref="series"/>

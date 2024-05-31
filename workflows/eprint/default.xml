@@ -94,7 +94,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="dates" required="yes" />
         <field ref="official_url"/>
         <field ref="patent_applicant" required="yes" />
-        <field ref="id_number" required="yes" />
         <field ref="pages"/>
       </epc:if>
       <epc:if test="type = 'monograph'">
@@ -102,7 +101,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="department"/>
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
-        <field ref="id_number"/>
         <field ref="pages"/>
         <field ref="dates"/>
         <field ref="official_url"/>
@@ -116,7 +114,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="volume"/>
         <field ref="number"/>
         <field ref="edition"/>
-        <field ref="isbn"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'other'">
@@ -124,7 +121,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="official_url"/>
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
-        <field ref="id_number"/>
       </epc:if>
       <epc:if test="type = 'book_section'">
         <field ref="pagerange"/>
@@ -133,11 +129,9 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
         <field ref="pages"/>
-        <field ref="id_number"/>
         <field ref="series"/>
         <field ref="number"/>
         <field ref="edition"/>
-        <field ref="isbn"/>
         <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
@@ -155,7 +149,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
       </epc:if>
       <epc:if test="type = 'article'">
         <field ref="publication" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/journal_by_name" />
-        <field ref="issn" input_lookup_url="{$config{rel_cgipath}}/users/lookup/journal_by_issn" />
         <field ref="publisher" />
         <field ref="official_url"/>
         <field ref="volume"/>
@@ -163,7 +156,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="article_number"/>
         <field ref="pagerange"/>
         <field ref="dates"/>
-        <field ref="id_number"/>
       </epc:if>
       <epc:if test="type = 'artefact'">
         <field ref="output_media"/>
@@ -172,7 +164,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
       </epc:if>
       <epc:if test="type = 'exhibition'">
         <field ref="output_media"/>
-        <field ref="isbn"/>
         <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
@@ -225,6 +216,7 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
       <field ref="related_url" />
     </component>
 
+    <component><field ref="ids"/></component>
     <component><field ref="funders" /></component>
     <component><field ref="projects" /></component>
 

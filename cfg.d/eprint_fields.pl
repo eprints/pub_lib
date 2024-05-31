@@ -177,6 +177,30 @@ push @{$c->{fields}->{eprint}},
 },
 
 {
+	name => 'ids',
+	type => 'compound',
+	multiple => 1,
+	fields => [
+		{ 
+			sub_name => 'id',
+			type => 'id',
+		},
+		{
+			sub_name => 'id_type',
+			type => 'set',
+			options => [qw( doi isbn issn pmid pmcid )],
+		},
+		{
+			sub_name => 'id_note',
+			type => 'text',
+			maxlength => 32,
+		},
+	],
+	render_value => 'render_ids_with_types',
+	input_boxes => 1
+},
+
+{
 	name => 'data_type',
 	type => 'text',
 },

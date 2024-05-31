@@ -2,6 +2,7 @@
 $c->{summary_page_metadata} = [qw/
 	commentary
 	note
+	ids
 	keywords
 	subjects
 	divisions

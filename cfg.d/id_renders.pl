@@ -8,7 +8,6 @@ $c->{render_id}->{isbn} = sub {
 
 	return unless defined $value and $value ne "";
 	my $label = $value;
-	$label = "ISBN $value" if $label !~ /ISBN/gi;
 	$value =~ s/[^\dX]//gi;	
 	$value = uc $value;
 	return $session->make_text( $label ) unless $value =~ /^[0-9X]{10,13}$/;
@@ -73,7 +72,6 @@ $c->{render_ids_with_types} = sub {
 	foreach my $value ( @{$values} )
 	{
 		my %opts;
-		use Data::Dumper;
 		$value->{id_type} = "undefined" unless defined $value->{id_type};
 		my $render_func = $session->config( 'render_id', $value->{id_type} );
 		my $rendered_id = &$render_func( $session, $value->{id}, %opts );

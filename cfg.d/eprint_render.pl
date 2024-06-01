@@ -6,6 +6,7 @@ $c->{summary_page_metadata} = [qw/
 	keywords
 	subjects
 	divisions
+	dates
 	sword_depositor
 	userid
 	datestamp

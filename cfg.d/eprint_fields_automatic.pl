@@ -68,18 +68,11 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 
 	# set a suitable 'date' and 'date_type' value
 	# use published date for preference - if not available use accepted date, and so on
-	my %priority = (
-		published => 1,
-		published_online => 2,
-		accepted => 3,
-		submitted => 4,
-		completed => 5,
-		default => 99,
-	);
+	my %priority = %{$repo->config( 'date_priorities' )};
 
 	return unless $eprint->is_set( "dates" );
 	my @dates = sort {
-		$priority{$a->{date_type}||"default"} <=> $priority{$b->{date_type}||"default"}
+		$priority{$b->{date_type}||"default"} <=> $priority{$a->{date_type}||"default"}
 	} @{ $eprint->value( "dates" ) };
 
 	my $date = scalar @dates ? $dates[0]->{date} : undef;

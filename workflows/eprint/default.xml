@@ -91,7 +91,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
       </epc:if>
 
       <epc:if test='type = "patent"'>
-        <field ref="dates" required="yes" />
         <field ref="official_url"/>
         <field ref="patent_applicant" required="yes" />
         <field ref="pages"/>
@@ -102,11 +101,9 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
         <field ref="pages"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'book'">
-        <field ref="dates"/>
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
         <field ref="pages"/>
@@ -117,7 +114,6 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'other'">
-        <field ref="dates"/>
         <field ref="official_url"/>
         <field ref="place_of_pub"/>
         <field ref="publisher" required="yes" />
@@ -132,18 +128,15 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="series"/>
         <field ref="number"/>
         <field ref="edition"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'thesis'">
-        <field ref="dates" required="yes" />
         <field ref="official_url"/>
         <field ref="institution" required="yes" />
         <field ref="department" required="yes" />
         <field ref="pages"/>
       </epc:if>
       <epc:if test="type = 'conference_item'">
-        <field ref="dates"/>
         <field ref="pagerange"/>
         <field ref="official_url"/>
       </epc:if>
@@ -155,68 +148,65 @@ Action buttons (Previous/Save/Next) can be shown "top", "bottom" or "both":
         <field ref="number"/>
         <field ref="article_number"/>
         <field ref="pagerange"/>
-        <field ref="dates"/>
       </epc:if>
       <epc:if test="type = 'artefact'">
         <field ref="output_media"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'exhibition'">
         <field ref="output_media"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'composition'">
         <field ref="output_media"/>
         <field ref="publisher" />
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'performance'">
         <field ref="output_media"/>
         <field ref="publisher" />
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'image'">
         <field ref="output_media"/>
         <field ref="publisher" />
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'video'">
         <field ref="output_media"/>
         <field ref="publisher" />
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'audio'">
         <field ref="output_media"/>
         <field ref="publisher" />
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'dataset'">
         <field ref="output_media"/>
         <field ref="publisher"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'experiment'">
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <epc:if test="type = 'teaching_resource'">
         <field ref="copyright_holders"/>
         <field ref="publisher"/>
-        <field ref="dates"/>
         <field ref="official_url"/>
       </epc:if>
       <field ref="related_url" />
     </component>
 
     <component><field ref="ids"/></component>
+    <epc:choose>
+        <epc:when test="type.one_of('patent','thesis')">
+            <component><field ref="dates" required="yes"/></component>
+        </epc:when>
+        <epc:otherwise>
+            <component><field ref="dates"/></component>
+        </epc:otherwise>
+    </epc:choose>
     <component><field ref="funders" /></component>
     <component><field ref="projects" /></component>
 

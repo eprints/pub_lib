@@ -2,48 +2,48 @@
 
 <stage name="core" xmlns="http://eprints.org/ep3/workflow" xmlns:epc="http://eprints.org/ep3/control">
 
-  <component><field ref="title" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/title_duplicates" input_lookup_params="id={eprintid}&amp;dataset=eprint&amp;field=title" /></component>
-  <component><field ref="abstract"/></component>
+  <component id="c_title"><field ref="title" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/title_duplicates" input_lookup_params="id={eprintid}&amp;dataset=eprint&amp;field=title" /></component>
+  <component id="c_abstract"><field ref="abstract"/></component>
 
   <epc:if test="type = 'monograph'">
-    <component><field ref="monograph_type" required="yes" /></component>
+    <component id="c_monograph_type"><field ref="monograph_type" required="yes" /></component>
   </epc:if>
   <epc:if test="type = 'thesis'">
-    <component><field ref="thesis_type" required="yes" /></component>
-    <component><field ref="thesis_name" required="yes" /></component>
+    <component id="c_thesis_type"><field ref="thesis_type" required="yes" /></component>
+    <component id="c_thesis_name"><field ref="thesis_name" required="yes" /></component>
   </epc:if>
   <epc:if test="type = 'conference_item'">
-    <component><field ref="pres_type" required="yes" /></component>
+    <component id="c_pres_type"><field ref="pres_type" required="yes" /></component>
   </epc:if>
   <epc:if test="type = 'composition'">
-    <component><field ref="composition_type" required="yes" /></component>
+    <component id="c_composition_type"><field ref="composition_type" required="yes" /></component>
   </epc:if>
   <epc:if test="type = 'dataset'">
-    <component><field ref="data_type" required="yes" /></component>
+    <component id="c_data_type"><field ref="data_type" required="yes" /></component>
   </epc:if>
 
   <epc:choose>
     <epc:when test="type.one_of('book','book_section')">
-      <component><field ref="creators" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
-      <component><field ref="corp_creators"/></component>
-      <component><field ref="editors" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
+      <component id="c_creators"><field ref="creators" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
+      <component id="c_corp_creators">><field ref="corp_creators"/></component>
+      <component id="c_editors">><field ref="editors" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
     </epc:when>
     <epc:otherwise>
-      <component><field ref="creators" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
-      <component><field ref="corp_creators"/></component>
+      <component id="c_creators">><field ref="creators" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
+      <component id="c_corp_creators">><field ref="corp_creators"/></component>
     </epc:otherwise>
   </epc:choose>
 
-  <component><field ref="contributors" /></component>
+  <component id="c_contributors">><field ref="contributors" /></component>
 
   <epc:if test="type = 'exhibition'">
-    <component><field ref="num_pieces"/></component>
+    <component id="c_num_pieces">><field ref="num_pieces"/></component>
   </epc:if>
 
-  <component><field ref="divisions" /></component>
+  <component id="c_divisions">><field ref="divisions" /></component>
 
-  <component type="Field::Multi">
-    <title><epc:phrase ref="archive:workflow:stage:core:publication_details:title" /></title>
+  <component id="c_publication_details" type="Field::Multi">
+	  <title><epc:phrase ref="archive:workflow:stage:core:publication_details:title" /></title>
     <epc:if test="type != 'patent' ">
       <epc:if test="type.one_of('book_section', 'book', 'article', 'conference_item')">
         <field ref="refereed" required="yes" />
@@ -161,20 +161,20 @@
     <field ref="related_url" />
   </component>
 
-  <component><field ref="ids"/></component>
+  <component id="c_ids"><field ref="ids"/></component>
   <epc:choose>
       <epc:when test="type.one_of('patent','thesis')">
-          <component><field ref="dates" required="yes"/></component>
+          <component id="c_dates"><field ref="dates" required="yes"/></component>
       </epc:when>
       <epc:otherwise>
-          <component><field ref="dates"/></component>
+          <component id="c_dates"><field ref="dates"/></component>
       </epc:otherwise>
   </epc:choose>
-  <component><field ref="funders" /></component>
-  <component><field ref="projects" /></component>
+  <component id="c_funders"><field ref="funders" /></component>
+  <component id="c_projects"><field ref="projects" /></component>
 
   <epc:if test="type = 'teaching_resource'">
-    <component type="Field::Multi">
+    <component id="c_pedagogic_details" type="Field::Multi">
       <title><epc:phrase ref="archive:workflow:stage:core:pedagogic_details:title" /></title>
       <field ref="pedagogic_type"/>
       <field ref="completion_time"/>
@@ -185,7 +185,7 @@
   </epc:if>
 
   <epc:if test="type.one_of( 'exhibition', 'performance' )">
-    <component type="Field::Multi">
+    <component id="c_venue_details" type="Field::Multi">
       <title><epc:phrase ref="archive:workflow:stage:core:venue_details:title" /></title>
       <field ref="event_title" />
       <field ref="event_location"/>
@@ -194,7 +194,7 @@
   </epc:if>
 
   <epc:if test="type = 'conference_item'">
-    <component type="Field::Multi">
+    <component id="c_event_details" type="Field::Multi">
       <title><epc:phrase ref="archive:workflow:stage:core:event_details:title" /></title>
       <field ref="event_title" input_lookup_url="{$config{rel_cgipath}}/users/lookup/event_by_name" required="yes" />
       <field ref="event_type" required="yes" />
@@ -207,11 +207,11 @@
   <component><field ref="relation"/></component>
 -->
 
-  <component collapse="yes"><field ref="contact_email"/></component>
-  <component collapse="yes"><field ref="referencetext"/></component>
-  <component collapse="yes"><field ref="keywords"/></component>
-  <component collapse="yes"><field ref="note"/></component>
-  <component collapse="yes"><field ref="suggestions"/></component>
+  <component id="c_contact_email" collapse="yes"><field ref="contact_email"/></component>
+  <component id="c_referencetext" collapse="yes"><field ref="referencetext"/></component>
+  <component id="c_keywords" collapse="yes"><field ref="keywords"/></component>
+  <component id="c_note" collapse="yes"><field ref="note"/></component>
+  <component id="c_suggestions" collapse="yes"><field ref="suggestions"/></component>
 
 </stage>
 

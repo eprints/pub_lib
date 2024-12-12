@@ -747,4 +747,7 @@ PY = 2006 and OG = (Cambridge)<br />
     <epp:phrase id="limit_names_shown">et al.</epp:phrase>
     <epp:phrase id="limit_names_shown_label">Show All <epc:pin name="field"/></epp:phrase>
 
+	<!-- homepage menu phrases -->
+	<epp:phrase id="homepage_menu_option_browse:desc">Browse the items in the repository by <a href="{$config{rel_path}}/view/year/">year</a>, <a href="{$config{rel_path}}/view/subjects/">subject</a>, <a href="{$config{rel_path}}/view/divisions/">division</a> or <a href="{$config{rel_path}}/view/creators/">author</a>.</epp:phrase>
+
 </epp:phrases>

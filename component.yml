@@ -1,0 +1,21 @@
+---
+id: "flavour:pub"
+name: "Research Publications Flavour"
+type: "flavour"
+version: 2.0
+version_alias: "TBD"
+maintainers: 
+  - name: "David R Newman"
+    email: "drn@ecs.soton.ac.uk"
+description: "This is a flavour that makes EPrints into a research publications repository."
+requires:
+  - component: "core"
+    version: ">= 3.5.0"
+  - component: ingredient:bazaar
+    version: ">= 2.0"
+  - component: ingredient:easy_pages
+    version: ">= 2.0"
+  - component: ingredient:richtext
+    version: ">= 2.0"
+usage: "This can be installed by just dropping it into the flavours sub-directory."
+readme: "https://wiki.eprints.org/w/EPrints_Flavours"

@@ -163,6 +163,54 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	}
 },  id => 'update_id_fields', priority => 100 );
 
+$c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
+{
+	my( %args ) = @_;
+	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
+
+	# trigger is global - check that current repository actually has at least one fields used for contributions
+	return unless $eprint->dataset->has_field( "creators" ) || $eprint->dataset->has_field( "editors" ) && $eprint->dataset->has_field( "contributors" );
+
+	my $primary_id_type = 'email';
+	my %contrib_fields = ( 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => undef );
+	my @contributions = ();
+	my $person_ds = $repo->dataset( 'person' );
+	foreach my $contrib_field ( keys %contrib_fields )
+	{
+		my $values = $eprint->value( $contrib_field );
+		my $contrib_type = $contrib_fields{$contrib_field};
+		foreach my $value ( @$values )
+		{
+			$contrib_type = $value->{type} unless $contrib_type;
+			if ( $value->{id} )
+			{
+				my $person = EPrints::DataObj::Entity::entity_with_id( $person_ds, $value->{id}, $primary_id_type );
+				unless ( $person )
+				{
+					my $person_data = { ids => [ { id => $value->{id}, id_type => $primary_id_type } ], names => [ { name => $value->{name} } ] };
+					$person = EPrints::DataObj::Person->create_from_data( $repo, $person_data );
+					$person->commit( 1 );
+				}
+				push @contributions, { personid => $person->id, type => $contrib_type };
+			}
+			else
+			{
+				my $person = EPrints::DataObj::Entity::entity_with_name( $person_ds, $value->{name} );
+				unless ( $person )
+				{
+					my $person_data = { names => [ { name => $value->{name} } ] };
+					$person = EPrints::DataObj::Person->create_from_data( $repo, $person_data );
+					$person->commit( 1 );
+				}
+				push @contributions, { personid => $person->id, type => $contrib_type };
+			}
+		}
+	}
+	$eprint->set_value( "contributions", \@contributions );
+
+}, id => 'update_contributions', priority => 100 );
+
+
 
 =head1 COPYRIGHT
 

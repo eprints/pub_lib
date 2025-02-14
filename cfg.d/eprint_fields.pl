@@ -53,6 +53,25 @@ push @{$c->{fields}->{eprint}},
 },
 
 {
+    name => 'contributions',
+    type => 'compound',
+    multiple => 1,
+    fields => [
+        {
+            sub_name => 'type',
+            type => 'namedset',
+            set_name => "contributor_type",
+        },
+        {
+            sub_name => 'personid',
+            type => 'itemref',
+			datasetid => 'person',
+        },
+    ],
+    input_boxes => 4,
+},
+
+{
 	name => 'corp_creators',
 	type => 'text',
 	multiple => 1,

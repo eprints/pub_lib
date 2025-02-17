@@ -168,15 +168,13 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	my( %args ) = @_;
 	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
 
-	# trigger is global - check that current repository actually has at least one fields used for contributions
-	return unless $eprint->dataset->has_field( "creators" ) || $eprint->dataset->has_field( "editors" ) && $eprint->dataset->has_field( "contributors" );
-
 	my $primary_id_type = 'email';
 	my %contrib_fields = ( 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => undef );
 	my @contributions = ();
 	my $person_ds = $repo->dataset( 'person' );
 	foreach my $contrib_field ( keys %contrib_fields )
 	{
+		next unless $eprint->dataset->has_field( $contrib_field );
 		my $values = $eprint->value( $contrib_field );
 		my $contrib_type = $contrib_fields{$contrib_field};
 		foreach my $value ( @$values )

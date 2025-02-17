@@ -174,7 +174,7 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	my $person_ds = $repo->dataset( 'person' );
 	foreach my $contrib_field ( keys %contrib_fields )
 	{
-		next unless $eprint->dataset->has_field( $contrib_field );
+		next unless $eprint->exists_and_set( $contrib_field );
 		my $values = $eprint->value( $contrib_field );
 		my $contrib_type = $contrib_fields{$contrib_field};
 		foreach my $value ( @$values )

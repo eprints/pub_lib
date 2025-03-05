@@ -53,22 +53,33 @@ push @{$c->{fields}->{eprint}},
 },
 
 {
-    name => 'contributions',
-    type => 'compound',
-    multiple => 1,
-    fields => [
-        {
-            sub_name => 'type',
-            type => 'namedset',
-            set_name => "contributor_type",
-        },
-        {
-            sub_name => 'personid',
-            type => 'itemref',
-			datasetid => 'person',
-        },
-    ],
-    input_boxes => 4,
+	name => 'contributions',
+	type => 'compound',
+	multiple => 1,
+	fields => [
+		{
+			sub_name => 'type',
+			type => 'namedset',
+			set_name => "contributor_type",
+		},
+		{
+			sub_name => 'contributor',
+			type => 'multipart',
+			fields => [
+				{
+					sub_name => 'datasetid',
+					type => 'id', 
+					text_index => 0,
+				},
+				{
+					sub_name => 'entityid',
+					type => 'int',
+				},
+			],
+			render_single_value => 'render_contributions_contributor',
+		},
+	],
+	input_boxes => 4,
 },
 
 {
@@ -92,7 +103,7 @@ push @{$c->{fields}->{eprint}},
 		inpress
 		submitted
 		unpub
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -153,7 +164,7 @@ push @{$c->{fields}->{eprint}},
 		accepted
 		submitted
 		completed
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -184,9 +195,9 @@ push @{$c->{fields}->{eprint}},
 },
 
 {
-        name => 'official_url',
-        type => 'url',
-        render_value => 'EPrints::Extras::render_url_truncate_end',
+	name => 'official_url',
+	type => 'url',
+	render_value => 'EPrints::Extras::render_url_truncate_end',
 },
 
 {
@@ -232,11 +243,11 @@ push @{$c->{fields}->{eprint}},
 },
 
 {
-    name => "contact_email",
-    type => "email",
-    required => 0,
-    can_clone => 0,
-    export_as_xml => 0,
+	name => "contact_email",
+	type => "email",
+	required => 0,
+	can_clone => 0,
+	export_as_xml => 0,
 },
 
 {
@@ -246,7 +257,7 @@ push @{$c->{fields}->{eprint}},
 		public
 		restricted
 		none
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -261,7 +272,7 @@ push @{$c->{fields}->{eprint}},
 		working_paper
 		discussion_paper
 		other
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -275,7 +286,7 @@ push @{$c->{fields}->{eprint}},
 		poster
 		keynote
 		other
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -346,7 +357,7 @@ push @{$c->{fields}->{eprint}},
 		conference
 		workshop
 		other
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -374,7 +385,7 @@ push @{$c->{fields}->{eprint}},
 		doctoral
 		postdoctoral
 		other
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -386,7 +397,7 @@ push @{$c->{fields}->{eprint}},
 		phd
 		dphil
 		other
-	)],
+		)],
 	input_style => 'medium',
 },
 
@@ -457,7 +468,7 @@ push @{$c->{fields}->{eprint}},
 				pub
 				author
 				org
-			)],
+				)],
 		}
 	],
 	input_boxes => 1,
@@ -510,7 +521,7 @@ push @{$c->{fields}->{eprint}},
 		problem
 		collaboration
 		communication
-	)],
+		)],
 },
 
 {

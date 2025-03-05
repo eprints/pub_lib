@@ -168,42 +168,54 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	my( %args ) = @_;
 	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
 
-	my $primary_id_type = 'email';
-	my %contrib_fields = ( 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => undef );
+	my $primary_id_types = { person => 'email', organisation => 'ror' };
+	my $contrib_person_fields = { 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => undef };
+	my $contrib_org_fields = { 'corp_creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'publisher' => 'http://www.loc.gov/loc.terms/relators/PBL', 'funders' => 'http://www.loc.gov/loc.terms/relators/FND' };
+	my $all_contrib_fields = { person => $contrib_person_fields, organisation => $contrib_org_fields };
 	my @contributions = ();
-	my $person_ds = $repo->dataset( 'person' );
-	foreach my $contrib_field ( keys %contrib_fields )
+
+	use Data::Dumper;
+	foreach my $contrib_fields_id ( keys %$all_contrib_fields )
 	{
-		next unless $eprint->exists_and_set( $contrib_field );
-		my $values = $eprint->value( $contrib_field );
-		my $contrib_type = $contrib_fields{$contrib_field};
-		foreach my $value ( @$values )
+		my $dataset = $repo->dataset( $contrib_fields_id );
+		my $contrib_fields = $all_contrib_fields->{$contrib_fields_id};
+		foreach my $contrib_field ( keys %{$all_contrib_fields->{$contrib_fields_id}} )
 		{
-			$contrib_type = $value->{type} unless $contrib_type;
-			if ( $value->{id} )
+			next unless $eprint->exists_and_set( $contrib_field );
+			my $values = $eprint->value( $contrib_field );
+			$values = [ $values ] unless ref( $values );
+			my $contrib_type = $contrib_fields->{$contrib_field};
+			foreach my $value ( @$values )
 			{
-				my $person = EPrints::DataObj::Entity::entity_with_id( $person_ds, $value->{id}, $primary_id_type );
-				unless ( $person )
+				my $contrib_name = ref( $value ) ? $value->{name} : $value;
+				$contrib_type = $value->{type} unless $contrib_type;
+				my $entity = undef;
+				$entity = EPrints::DataObj::Entity::entity_with_id( $dataset, $value->{id}, { type => $primary_id_types->{$contrib_fields_id}, name => $contrib_name } ) if ref( $value ) && $value->{id};
+				unless ( $entity )
 				{
-					my $person_data = { ids => [ { id => $value->{id}, id_type => $primary_id_type } ], names => [ { name => $value->{name} } ] };
-					$person = EPrints::DataObj::Person->create_from_data( $repo, $person_data );
-					$person->commit( 1 );
+					# Find an entity that matches the entity's name but does not already have an ID.
+					$entity = EPrints::DataObj::Entity::entity_with_name( $dataset, $contrib_name, { no_id => 1 } );
+
+					# If an entity is found but the entered field row has an ID, create a new entity including that ID.
+					if( $entity && ref( $value ) && $value->{id} )
+					{
+						my $entity_data = { names => [ { name => $contrib_name } ], ids => [ { id => $value->{id}, id_type => $primary_id_types->{$contrib_fields_id} } ] };
+						$entity = $dataset->create_dataobj( $entity_data );
+						$entity->commit( 1 );
+					}
+					elsif ( !$entity )
+					{
+						my $entity_data = { names => [ { name => $contrib_name } ] };
+						$entity_data->{ids} = [ { id => $value->{id}, id_type => $primary_id_types->{$contrib_fields_id} } ] if ref( $value ) && $value->{id} ;
+						$entity = $dataset->create_dataobj( $entity_data );
+						$entity->commit( 1 );
+					}
 				}
-				push @contributions, { personid => $person->id, type => $contrib_type };
-			}
-			else
-			{
-				my $person = EPrints::DataObj::Entity::entity_with_name( $person_ds, $value->{name} );
-				unless ( $person )
-				{
-					my $person_data = { names => [ { name => $value->{name} } ] };
-					$person = EPrints::DataObj::Person->create_from_data( $repo, $person_data );
-					$person->commit( 1 );
-				}
-				push @contributions, { personid => $person->id, type => $contrib_type };
+				push @contributions, { contributor => { entityid => $entity->id, datasetid => $contrib_fields_id }, type => $contrib_type };
 			}
 		}
 	}
+
 	$eprint->set_value( "contributions", \@contributions );
 
 }, id => 'update_contributions', priority => 100 );

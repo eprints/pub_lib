@@ -191,7 +191,17 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 				$contrib_type = $value->{type} unless $contrib_type;
 				my $entity = undef;
 				$entity = EPrints::DataObj::Entity::entity_with_id( $dataset, $value->{id}, { type => $primary_id_types->{$contrib_fields_id}, name => $contrib_name } ) if ref( $value ) && $value->{id};
-				unless ( $entity )
+				if ( $entity )
+				{
+					unless ( $entity->has_name( $contrib_name ) )
+					{
+						my $names = $entity->get_value( 'names' );
+						unshift @$names, { name => $contrib_name };
+						$entity->set_value( 'names', $names );
+						$entity->commit;
+					}		
+				}
+				else
 				{
 					# Find an entity that matches the entity's name but does not already have an ID.
 					$entity = EPrints::DataObj::Entity::entity_with_name( $dataset, $contrib_name, { no_id => 1 } );

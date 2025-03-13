@@ -1,3 +1,5 @@
+$c->{entities}->{datasets} = [ qw/ person organisation / ];
+
 $c->{render_contributions_contributor} = sub {
 
 	my( $session, $field, $value, $alllangs, $nolink, $object ) = @_;

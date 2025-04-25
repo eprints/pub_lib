@@ -68,8 +68,9 @@ push @{$c->{fields}->{eprint}},
 			fields => [
 				{
 					sub_name => 'datasetid',
-					type => 'id', 
+					type => 'set',
 					text_index => 0,
+					options => [qw( person organisation )],
 				},
 				{
 					sub_name => 'entityid',
@@ -79,6 +80,7 @@ push @{$c->{fields}->{eprint}},
 			render_single_value => 'render_contributions_contributor',
 		},
 	],
+	render_input => 'render_input_contributions',
 	input_boxes => 4,
 },
 

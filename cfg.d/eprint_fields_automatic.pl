@@ -169,8 +169,8 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	my( $repo, $eprint, $changed ) = @args{qw( repository dataobj changed )};
 
 	my $primary_id_types = { person => 'email', organisation => 'ror' };
-	my $contrib_person_fields = { 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => undef };
-	my $contrib_org_fields = { 'corp_creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'publisher' => 'http://www.loc.gov/loc.terms/relators/PBL', 'funders' => 'http://www.loc.gov/loc.terms/relators/FND' };
+	my $contrib_person_fields = { 'creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'editors' => 'http://www.loc.gov/loc.terms/relators/EDT', 'contributors' => 'http://www.loc.gov/loc.terms/relators/OTH',  };
+	my $contrib_org_fields = { 'corp_creators' => 'http://www.loc.gov/loc.terms/relators/AUT', 'publisher' => 'http://www.loc.gov/loc.terms/relators/PBL', 'funders' => 'http://www.loc.gov/loc.terms/relators/FND', patent_applicant => 'http://www.loc.gov/loc.terms/relators/PTA', 'copyright_holders' => 'http://www.loc.gov/loc.terms/relators/CPH' };
 	my $all_contrib_fields = { person => $contrib_person_fields, organisation => $contrib_org_fields };
 	my @contributions = ();
 

@@ -84,35 +84,35 @@
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/view/" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
+                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
                     <p class="h6" style="font-weight: 900;">
                       <epc:phrase ref="template/navigation:browse"/>
                     </p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill m-1 ms-2" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill m-0 ms-2" viewBox="0 0 16 16">
                       <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                     </svg>
                   </a>
                   <ul role="menu" id="ep_tm_menu_browse" style="display:none; position: absolute; right: 0; z-index: 3;" class="list-group m-2">
-                          <a href="{$config{rel_path}}/view/year/" role="menuitem" class="list-group-item list-group-item-action p-3">
+                          <a href="{$config{rel_path}}/cgi/facet_index_single?label=Year&amp;facet=date&amp;field=date_year&amp;table=eprint&amp;render=noop" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_year"/>
                     </a>
-                        <a href="{$config{rel_path}}/view/subjects/" role="menuitem" class="list-group-item list-group-item-action p-3">
+                        <a href="{$config{rel_path}}/cgi/facet_index_single?label=Subjects&amp;facet=subjects&amp;field=subjects&amp;table=eprint_subjects&amp;render=subjects" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_subjects"/>
               </a>
-                                  <a href="{$config{rel_path}}/view/divisions/" role="menuitem" class="list-group-item list-group-item-action p-3">
+                                  <a href="{$config{rel_path}}/cgi/facet_index_single?label=Divisions&amp;facet=divisions&amp;field=divisions&amp;table=eprint_divisions&amp;render=subjects" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_divisions"/>
               </a>
-                                  <a href="{$config{rel_path}}/view/creators/" role="menuitem" class="list-group-item list-group-item-action p-3">
+                                  <a href="{$config{rel_path}}/cgi/facet_index_single?label=Item%20Type&amp;facet=type&amp;field=type&amp;table=eprint&amp;render=phrase" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
-                      <epc:phrase ref="viewname_eprint_creators"/>
+		      Type
                     </a>
                   </ul>
                 </li>
                 <li class="nav-item d-block d-sm-none">
-                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/view/" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
+                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
                     <p class="h6" style="font-weight: 900;">
                       <epc:phrase ref="template/navigation:browse"/>
                     </p>
@@ -161,7 +161,7 @@
             </form>
           </div>
         </nav>
-        <nav class="navbar navbar-expand-lg">
+        <nav id="ep-page-title" class="navbar navbar-expand-lg">
           <div class="container m-auto w-100">
             <div class="d-flex flex-column w-100">
               <div class="d-flex my-2 justify-content-center">

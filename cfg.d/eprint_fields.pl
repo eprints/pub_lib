@@ -73,6 +73,21 @@ push @{$c->{fields}->{eprint}},
 					text_index => 0,
 					options => [qw( person organisation )],
 					default_value => 'person',
+					maxlength => 32,
+				},
+				{
+					sub_name => 'name',
+					type => 'text',
+				},
+				{
+					sub_name => 'id_value',
+					type => 'text',
+				},
+				{
+					sub_name => 'id_type',
+					type => 'set',
+					options => [ qw( email username ror url ) ],
+					maxlength => 32,
 				},
 				{
 					sub_name => 'entityid',

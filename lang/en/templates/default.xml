@@ -19,7 +19,7 @@
               <span class="navbar-toggler-icon"/>
             </button>
             <div class="collapse navbar-collapse ps-3 text-nowrap" id="navbarNav_keyTools">
-		<hr class="d-none d-md-block my-1"/>
+              <hr class="d-none d-md-block my-1"/>
               <epc:pin ref="login_status"/>
             </div>
           </div>
@@ -34,9 +34,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav_mainNav">
               <ul role="menu" class="navbar-nav ms-auto">
-		<hr class="d-block d-sm-none"/>
-		<div class="d-block d-sm-none"><epc:pin ref="login_status"/></div>
-		<hr class="d-block d-sm-none"/>
+                <hr class="d-block d-sm-none"/>
+                <div class="d-block d-sm-none">
+                  <epc:pin ref="login_status"/>
+                </div>
+                <hr class="d-block d-sm-none"/>
                 <li class="nav-item me-4">
                   <a class="nav-link text-dark" href="{$config{rel_path}}/" title="{phrase('template/navigation:home:title')}" role="menuitem">
                     <p class="h6" style="font-weight: 900;">
@@ -61,31 +63,31 @@
                     </svg>
                   </a>
                   <ul role="menu" id="ep_tm_menu_browse" style="display:none; position: absolute; right: 0; z-index: 3;" class="list-group m-2">
-			  <a href="{$config{rel_path}}/cgi/facet_index_single?label=Year&amp;facet=date&amp;field=date_year&amp;table=eprint&amp;render=noop" role="menuitem" class="list-group-item list-group-item-action p-3">
+                    <a href="{$config{rel_path}}/view/year" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_year"/>
                     </a>
-			<a href="{$config{rel_path}}/cgi/facet_index_single?label=Subjects&amp;facet=subjects&amp;field=subjects&amp;table=eprint_subjects&amp;render=subjects" role="menuitem" class="list-group-item list-group-item-action p-3">
+                    <a href="{$config{rel_path}}/view/subjects" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_subjects"/>
-	      </a>
-	                          <a href="{$config{rel_path}}/cgi/facet_index_single?label=Divisions&amp;facet=divisions&amp;field=divisions&amp;table=eprint_divisions&amp;render=subjects" role="menuitem" class="list-group-item list-group-item-action p-3">
+                    </a>
+                    <a href="{$config{rel_path}}/view/divisions" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
                       <epc:phrase ref="viewname_eprint_divisions"/>
-	      </a>
-	                          <a href="{$config{rel_path}}/cgi/facet_index_single?label=Item%20Type&amp;facet=type&amp;field=type&amp;table=eprint&amp;render=phrase" role="menuitem" class="list-group-item list-group-item-action p-3">
+                    </a>
+                    <a href="{$config{rel_path}}/view/creators" role="menuitem" class="list-group-item list-group-item-action p-3">
                       <epc:phrase ref="bin/generate_views:indextitleprefix"/>
-                      Type
+                      <epc:phrase ref="viewname_eprint_creators"/>
                     </a>
                   </ul>
                 </li>
-			<li class="nav-item d-block d-sm-none">
-			<a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="    menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
-			<p class="h6" style="font-weight: 900;">
-				<epc:phrase ref="template/navigation:browse"/>
-			</p>
-			</a>
-			</li>
+                <li class="nav-item d-block d-sm-none">
+                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="menuitem">
+                    <p class="h6" style="font-weight: 900;">
+                      <epc:phrase ref="template/navigation:browse"/>
+                    </p>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

@@ -6,17 +6,17 @@ $c->{entities}->{field_contribution_types}->{eprint}->{person} = {
 
 $c->{entities}->{field_contribution_maps}->{eprint}->{person} = {
     creators => {
-		'name' => 'contributors:name',
-		'id' => 'contributors:id_value:id_type=email'
+		name => 'contributor:name',
+		id => 'contributor:id_value:id_type=email',
 	},
     editors => {
-		'name' => 'contributors:name',
-		'id' => 'contributors:id_value:id_type=email',
+		name => 'contributor:name',
+		id => 'contributor:id_value:id_type=email',
 	},
     contributors => {
-		'type' => 'type',
-		'name' => 'contributors:name',
-        'id' => 'contributors:id_value:id_type=email',
+		type => 'type',
+		name => 'contributor:name',
+		id => 'contributor:id_value:id_type=email',
 	},	 
 };
 

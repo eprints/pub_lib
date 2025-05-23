@@ -54,7 +54,7 @@
                   </a>
                 </li>
                 <li class="nav-item d-none d-sm-block">
-                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
+                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/view" title="{phrase('template/navigation:browse:title')}" role="menuitem" menu="ep_tm_menu_browse" aria-owns="ep_tm_menu_browse">
                     <p class="h6" style="font-weight: 900;">
                       <epc:phrase ref="template/navigation:browse"/>
                     </p>
@@ -82,7 +82,7 @@
                   </ul>
                 </li>
                 <li class="nav-item d-block d-sm-none">
-                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/facet_index.html" title="{phrase('template/navigation:browse:title')}" role="menuitem">
+                  <a class="nav-link text-decoration-none text-dark d-flex" href="{$config{rel_path}}/view" title="{phrase('template/navigation:browse:title')}" role="menuitem">
                     <p class="h6" style="font-weight: 900;">
                       <epc:phrase ref="template/navigation:browse"/>
                     </p>

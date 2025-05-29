@@ -25,6 +25,7 @@ $c->{search}->{simple} =
 	},
 	default_order => "byyear",
 	show_zero_results => 1,
+	template => "default_internal",
 };
 		
 

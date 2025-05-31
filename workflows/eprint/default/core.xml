@@ -22,6 +22,7 @@
     <component id="c_data_type"><field ref="data_type" required="yes" /></component>
   </epc:if>
 
+<!--
   <epc:choose>
     <epc:when test="type.one_of('book','book_section')">
       <component id="c_creators"><field ref="creators" input_lookup_url="{$config{rel_cgipath}}/users/lookup/name" /></component>
@@ -33,8 +34,9 @@
       <component id="c_corp_creators">><field ref="corp_creators"/></component>
     </epc:otherwise>
   </epc:choose>
-
   <component id="c_contributors">><field ref="contributors" /></component>
+-->
+  <component id="c_contributions">><field ref="contributions" /></component>
 
   <epc:if test="type = 'exhibition'">
     <component id="c_num_pieces">><field ref="num_pieces"/></component>
@@ -55,20 +57,20 @@
 
     <epc:if test='type = "patent"'>
       <field ref="official_url"/>
-      <field ref="patent_applicant" required="yes" />
+<!--  <field ref="patent_applicant" required="yes" /> -->
       <field ref="pages"/>
     </epc:if>
     <epc:if test="type = 'monograph'">
       <field ref="institution"/>
       <field ref="department"/>
       <field ref="place_of_pub"/>
-      <field ref="publisher" required="yes" />
+<!--  <field ref="publisher" required="yes" /> -->
       <field ref="pages"/>
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'book'">
       <field ref="place_of_pub"/>
-      <field ref="publisher" required="yes" />
+<!--  <field ref="publisher" required="yes" /> -->
       <field ref="pages"/>
       <field ref="series"/>
       <field ref="volume"/>
@@ -79,14 +81,14 @@
     <epc:if test="type = 'other'">
       <field ref="official_url"/>
       <field ref="place_of_pub"/>
-      <field ref="publisher" required="yes" />
+<!--  <field ref="publisher" required="yes" /> -->
     </epc:if>
     <epc:if test="type = 'book_section'">
       <field ref="pagerange"/>
       <field ref="book_title" required="yes" />
       <field ref="volume"/>
       <field ref="place_of_pub"/>
-      <field ref="publisher" required="yes" />
+<!--  <field ref="publisher" required="yes" /> -->
       <field ref="pages"/>
       <field ref="series"/>
       <field ref="number"/>
@@ -105,7 +107,7 @@
     </epc:if>
     <epc:if test="type = 'article'">
       <field ref="publication" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/journal_by_name" />
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
       <field ref="volume"/>
       <field ref="number"/>
@@ -122,40 +124,40 @@
     </epc:if>
     <epc:if test="type = 'composition'">
       <field ref="output_media"/>
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'performance'">
       <field ref="output_media"/>
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'image'">
       <field ref="output_media"/>
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'video'">
       <field ref="output_media"/>
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'audio'">
       <field ref="output_media"/>
-      <field ref="publisher" />
+<!--  <field ref="publisher" /> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'dataset'">
       <field ref="output_media"/>
-      <field ref="publisher"/>
+<!--  <field ref="publisher"/> -->
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'experiment'">
       <field ref="official_url"/>
     </epc:if>
     <epc:if test="type = 'teaching_resource'">
-      <field ref="copyright_holders"/>
-      <field ref="publisher"/>
+<!--      <field ref="copyright_holders"/> -->
+<!--  <field ref="publisher"/> -->
       <field ref="official_url"/>
     </epc:if>
     <field ref="related_url" />
@@ -170,7 +172,7 @@
           <component id="c_dates"><field ref="dates"/></component>
       </epc:otherwise>
   </epc:choose>
-  <component id="c_funders"><field ref="funders" /></component>
+<!--  <component id="c_funders"><field ref="funders" /></component> -->
   <component id="c_projects"><field ref="projects" /></component>
 
   <epc:if test="type = 'teaching_resource'">

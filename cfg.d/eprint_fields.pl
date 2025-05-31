@@ -123,7 +123,7 @@ push @{$c->{fields}->{eprint}},
 		inpress
 		submitted
 		unpub
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -184,7 +184,7 @@ push @{$c->{fields}->{eprint}},
 		accepted
 		submitted
 		completed
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -277,7 +277,7 @@ push @{$c->{fields}->{eprint}},
 		public
 		restricted
 		none
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -292,7 +292,7 @@ push @{$c->{fields}->{eprint}},
 		working_paper
 		discussion_paper
 		other
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -306,7 +306,7 @@ push @{$c->{fields}->{eprint}},
 		poster
 		keynote
 		other
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -377,7 +377,7 @@ push @{$c->{fields}->{eprint}},
 		conference
 		workshop
 		other
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -405,7 +405,7 @@ push @{$c->{fields}->{eprint}},
 		doctoral
 		postdoctoral
 		other
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -417,7 +417,7 @@ push @{$c->{fields}->{eprint}},
 		phd
 		dphil
 		other
-		)],
+	)],
 	input_style => 'medium',
 },
 
@@ -488,7 +488,7 @@ push @{$c->{fields}->{eprint}},
 				pub
 				author
 				org
-				)],
+			)],
 		}
 	],
 	input_boxes => 1,
@@ -541,7 +541,7 @@ push @{$c->{fields}->{eprint}},
 		problem
 		collaboration
 		communication
-		)],
+	)],
 },
 
 {

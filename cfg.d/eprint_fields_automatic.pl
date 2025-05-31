@@ -163,6 +163,7 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 	}
 },  id => 'update_id_fields', priority => 100 );
 
+
 =head1 COPYRIGHT
 
 =for COPYRIGHT BEGIN

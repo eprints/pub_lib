@@ -2,11 +2,15 @@
 id: "flavour:pub"
 name: "Research Publications Flavour"
 type: "flavour"
-version: 2.0
-version_alias: "TBD"
+version: "3.5.0"
+version_alias: "Highfield Hippogriff"
 maintainers: 
   - name: "David R Newman"
     email: "drn@ecs.soton.ac.uk"
+  - name: "Edward Oakley"
+    email: "E.J.Oakley@soton.ac.uk"
+  - name: "Justin Bradley"
+    email: "justin@soton.ac.uK"
 description: "This is a flavour that makes EPrints into a research publications repository."
 requires:
   - component: "core"

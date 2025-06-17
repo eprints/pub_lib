@@ -1,4 +1,20 @@
-# List of relationships contributors can have to an item.
+# Selected List of relationships contributors can have to an item.
+
+http://www.loc.gov/loc.terms/relators/AUT   # Author
+http://www.loc.gov/loc.terms/relators/EDT   # Editor
+http://www.loc.gov/loc.terms/relators/OTH   # Other
+
+http://www.loc.gov/loc.terms/relators/CND   # Conductor
+http://www.loc.gov/loc.terms/relators/CPH   # Copyright holder
+http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
+http://www.loc.gov/loc.terms/relators/FND   # Funder
+http://www.loc.gov/loc.terms/relators/LYR   # Lyricist
+http://www.loc.gov/loc.terms/relators/PTA   # Patent applicant
+http://www.loc.gov/loc.terms/relators/PRO   # Producer
+http://www.loc.gov/loc.terms/relators/PBL   # Publisher
+http://www.loc.gov/loc.terms/relators/THS   # Thesis advisor
+
+# Full List of relationships contributors can have to an item.
 
 #http://www.loc.gov/loc.terms/relators/ACT   # Actor
 #http://www.loc.gov/loc.terms/relators/ADP   # Adapter
@@ -12,7 +28,7 @@
 #http://www.loc.gov/loc.terms/relators/ASN   # Associated name
 #http://www.loc.gov/loc.terms/relators/ATT   # Attributed name
 #http://www.loc.gov/loc.terms/relators/AUC   # Auctioneer
-http://www.loc.gov/loc.terms/relators/AUT   # Author
+#http://www.loc.gov/loc.terms/relators/AUT   # Author
 #http://www.loc.gov/loc.terms/relators/AQT   # Author in quotations or text extracts
 #http://www.loc.gov/loc.terms/relators/AFT   # Author of afterword, colophon, etc.
 #http://www.loc.gov/loc.terms/relators/AUD   # Author of dialog
@@ -44,7 +60,7 @@ http://www.loc.gov/loc.terms/relators/AUT   # Author
 #http://www.loc.gov/loc.terms/relators/CMP   # Composer
 #http://www.loc.gov/loc.terms/relators/CMT   # Compositor
 #http://www.loc.gov/loc.terms/relators/CCP   # Conceptor
-http://www.loc.gov/loc.terms/relators/CND   # Conductor
+#http://www.loc.gov/loc.terms/relators/CND   # Conductor
 #http://www.loc.gov/loc.terms/relators/CSL   # Consultant
 #http://www.loc.gov/loc.terms/relators/CSP   # Consultant to a project
 #http://www.loc.gov/loc.terms/relators/COS   # Contestant
@@ -56,13 +72,13 @@ http://www.loc.gov/loc.terms/relators/CND   # Conductor
 #http://www.loc.gov/loc.terms/relators/CTR   # Contractor
 #http://www.loc.gov/loc.terms/relators/CTB   # Contributor
 #http://www.loc.gov/loc.terms/relators/CPC   # Copyright claimant
-http://www.loc.gov/loc.terms/relators/CPH   # Copyright holder
+#http://www.loc.gov/loc.terms/relators/CPH   # Copyright holder
 #http://www.loc.gov/loc.terms/relators/CRR   # Corrector
 #http://www.loc.gov/loc.terms/relators/CRP   # Correspondent
 #http://www.loc.gov/loc.terms/relators/CST   # Costume designer
 #http://www.loc.gov/loc.terms/relators/COV   # Cover designer
 #http://www.loc.gov/loc.terms/relators/CRE   # Creator
-http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
+#http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
 #http://www.loc.gov/loc.terms/relators/DNC   # Dancer
 #http://www.loc.gov/loc.terms/relators/DTE   # Dedicatee
 #http://www.loc.gov/loc.terms/relators/DTO   # Dedicator
@@ -80,7 +96,7 @@ http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
 #http://www.loc.gov/loc.terms/relators/DNR   # Donor
 #http://www.loc.gov/loc.terms/relators/DRM   # Draftsman
 #http://www.loc.gov/loc.terms/relators/DUB   # Dubious author
-http://www.loc.gov/loc.terms/relators/EDT   # Editor
+#http://www.loc.gov/loc.terms/relators/EDT   # Editor
 #http://www.loc.gov/loc.terms/relators/ELT   # Electrotyper
 #http://www.loc.gov/loc.terms/relators/ENG   # Engineer
 #http://www.loc.gov/loc.terms/relators/EGR   # Engraver
@@ -91,7 +107,7 @@ http://www.loc.gov/loc.terms/relators/EDT   # Editor
 #http://www.loc.gov/loc.terms/relators/FPY   # First party
 #http://www.loc.gov/loc.terms/relators/FRG   # Forger
 #http://www.loc.gov/loc.terms/relators/FMO   # Former owner
-http://www.loc.gov/loc.terms/relators/FND   # Funder
+#http://www.loc.gov/loc.terms/relators/FND   # Funder
 #http://www.loc.gov/loc.terms/relators/HNR   # Honoree
 #http://www.loc.gov/loc.terms/relators/HST   # Host
 #http://www.loc.gov/loc.terms/relators/ILU   # Illuminator
@@ -114,7 +130,7 @@ http://www.loc.gov/loc.terms/relators/FND   # Funder
 #http://www.loc.gov/loc.terms/relators/LSO   # Licensor
 #http://www.loc.gov/loc.terms/relators/LGD   # Lighting designer
 #http://www.loc.gov/loc.terms/relators/LTG   # Lithographer
-http://www.loc.gov/loc.terms/relators/LYR   # Lyricist
+#http://www.loc.gov/loc.terms/relators/LYR   # Lyricist
 #http://www.loc.gov/loc.terms/relators/MFR   # Manufacturer
 #http://www.loc.gov/loc.terms/relators/MRK   # Markup editor
 #http://www.loc.gov/loc.terms/relators/MDC   # Metadata contact
@@ -126,10 +142,10 @@ http://www.loc.gov/loc.terms/relators/LYR   # Lyricist
 #http://www.loc.gov/loc.terms/relators/OPN   # Opponent
 #http://www.loc.gov/loc.terms/relators/ORM   # Organizer of meeting
 #http://www.loc.gov/loc.terms/relators/ORG   # Originator
-http://www.loc.gov/loc.terms/relators/OTH   # Other
+#http://www.loc.gov/loc.terms/relators/OTH   # Other
 #http://www.loc.gov/loc.terms/relators/OWN   # Owner
 #http://www.loc.gov/loc.terms/relators/PPM   # Papermaker
-http://www.loc.gov/loc.terms/relators/PTA   # Patent applicant
+#http://www.loc.gov/loc.terms/relators/PTA   # Patent applicant
 #http://www.loc.gov/loc.terms/relators/PTH   # Patent holder
 #http://www.loc.gov/loc.terms/relators/PAT   # Patron
 #http://www.loc.gov/loc.terms/relators/PRF   # Performer
@@ -142,11 +158,11 @@ http://www.loc.gov/loc.terms/relators/PTA   # Patent applicant
 #http://www.loc.gov/loc.terms/relators/POP   # Printer of plates
 #http://www.loc.gov/loc.terms/relators/PRM   # Printmaker
 #http://www.loc.gov/loc.terms/relators/PRC   # Process contact
-http://www.loc.gov/loc.terms/relators/PRO   # Producer
+#http://www.loc.gov/loc.terms/relators/PRO   # Producer
 #http://www.loc.gov/loc.terms/relators/PRD   # Production personnel
 #http://www.loc.gov/loc.terms/relators/PRG   # Programmer
 #http://www.loc.gov/loc.terms/relators/PFR   # Proofreader
-http://www.loc.gov/loc.terms/relators/PBL   # Publisher
+#http://www.loc.gov/loc.terms/relators/PBL   # Publisher
 #http://www.loc.gov/loc.terms/relators/PBD   # Publishing director
 #http://www.loc.gov/loc.terms/relators/PPT   # Puppeteer
 #http://www.loc.gov/loc.terms/relators/RCP   # Recipient
@@ -180,7 +196,7 @@ http://www.loc.gov/loc.terms/relators/PBL   # Publisher
 #http://www.loc.gov/loc.terms/relators/STL   # Storyteller
 #http://www.loc.gov/loc.terms/relators/SRV   # Surveyor
 #http://www.loc.gov/loc.terms/relators/TCH   # Teacher
-http://www.loc.gov/loc.terms/relators/THS   # Thesis advisor
+#http://www.loc.gov/loc.terms/relators/THS   # Thesis advisor
 #http://www.loc.gov/loc.terms/relators/TRC   # Transcriber
 #http://www.loc.gov/loc.terms/relators/TRL   # Translator
 #http://www.loc.gov/loc.terms/relators/TYD   # Type designer

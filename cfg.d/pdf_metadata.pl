@@ -6,7 +6,8 @@ $c->{title_metadata} = ["XMP-dc:Title", "PDF:Title"];
 
 # Which metadata fields shall we read from to fill `authors`.
 # This will split on ',', '\t', 'and', '&' and ';' to form multiple authors,
-# and it will split on the final space to separate given and family names
+# and it will split according to `$c->{format_imported_author}` to fill
+# the `given` and `family` fields.
 $c->{authors_metadata} = ["XMP-sn:AuthorInfoName", "XMP-dc:Creator", "PDF:Author"];
 
 $c->{publication_metadata} = ["XMP-prism:PublicationName"];
@@ -37,3 +38,26 @@ $c->{id_number_metadata} = [
 ];
 # Whether to fill the `official_url` with 'https://doi.org/{id_number}' if the `official_url_metadata` fields don't exist.
 $c->{fill_url_with_id_number} = 1;
+
+# A function to split an author's name into the creators/contributions field.
+#
+# This is expected to return a single string `<name>` if `$has_contributions`
+# is true and a hash ref of `{given => <given>, family => <family>}` if false.
+#
+# The default behaviour is to make the final word (split on spaces) the 'given
+# name' and join in contributions as `<family>, <given>`.
+$c->{format_imported_author} = sub {
+	my( $name, $has_contributions ) = @_;
+
+	my @words = split(' ', $name);
+	my $given = join(' ', @words[0..$#words-1]);
+
+	if( $has_contributions ) {
+		return $words[-1] . ', ' . $given;
+	} else {
+		return {
+			given => $given,
+			family => $words[-1]
+		};
+	}
+}

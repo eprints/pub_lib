@@ -9,6 +9,7 @@ $c->{title_metadata} = ["XMP-dc:Title", "PDF:Title"];
 # and it will split according to `$c->{format_imported_author}` to fill
 # the `given` and `family` fields.
 $c->{authors_metadata} = ["XMP-sn:AuthorInfoName", "XMP-dc:Creator", "PDF:Author"];
+$c->{authors_orcid_metadata} = ["XMP-sn:AuthorInfoOrcid"];
 
 $c->{publication_metadata} = ["XMP-prism:PublicationName"];
 $c->{issn_metadata} = ["XMP-prism:ISSN"];

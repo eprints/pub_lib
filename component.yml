@@ -15,8 +15,6 @@ description: "This is a flavour that makes EPrints into a research publications 
 requires:
   - component: "core"
     version: ">= 3.5.0"
-  - component: ingredient:bazaar
-    version: ">= 2.0"
   - component: ingredient:easy_pages
     version: ">= 2.0"
   - component: ingredient:richtext

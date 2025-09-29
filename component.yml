@@ -19,5 +19,7 @@ requires:
     version: ">= 2.0"
   - component: ingredient:richtext
     version: ">= 2.0"
+  - component: ingredient:latest_additions
+    version: ">= 2.0"
 usage: "This can be installed by just dropping it into the flavours sub-directory."
 readme: "https://wiki.eprints.org/w/EPrints_Flavours"

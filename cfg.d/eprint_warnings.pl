@@ -2,17 +2,18 @@
 
 ######################################################################
 #
-# eprint_warnings( $eprint, $repository )
+# EP_TRIGGER_WARNINGS 'eprint' dataset trigger
 #
 ######################################################################
 #
-# $eprint 
+# $dataobj
 # - EPrint object
-# $repository 
+# $repository
 # - Repository object (the current repository)
-#
-# returns: @problems
-# - ARRAY of DOM objects (may be null)
+# $for_archive
+# - Is this being checked to go live (`1` means it is)
+# $warnings
+# - ARRAYREF of DOM objects
 #
 ######################################################################
 #
@@ -24,19 +25,23 @@
 #
 ######################################################################
 
-$c->{eprint_warnings} = sub
-{
-	my( $eprint, $repository ) = @_;
-
-	my @problems = ();
+$c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_WARNINGS, sub {
+	my( %args ) = @_;
+	my( $repository, $eprint, $warnings ) = @args{qw( repository dataobj warnings )};
 
 	my @docs = $eprint->get_all_documents;
 	if( @docs == 0 )
 	{
-		push @problems, $repository->html_phrase( "warnings:no_documents" );
+		push @$warnings, $repository->html_phrase( "warnings:no_documents" );
 	}
+}, id => 'no_documents' );
+
+$c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_WARNINGS, sub {
+	my( %args ) = @_;
+	my( $repository, $eprint, $warnings ) = @args{qw( repository dataobj warnings )};
 
 	my $all_public = 1;
+	my @docs = $eprint->get_all_documents;
 	foreach my $doc ( @docs )
 	{
 		if( $doc->value( "security" ) ne "public" ) 
@@ -47,13 +52,9 @@ $c->{eprint_warnings} = sub
 
 	if( !$all_public && !$eprint->is_set( "contact_email" ) )
 	{
-		push @problems, $repository->html_phrase( "warnings:no_contact_email" );
+		push @$warnings, $repository->html_phrase( "warnings:no_contact_email" );
 	}
-		
-
-
-	return( @problems );
-};
+}, id => 'no_contact_email' );
 
 =head1 COPYRIGHT
 

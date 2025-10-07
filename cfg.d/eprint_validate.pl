@@ -2,34 +2,30 @@
 
 ######################################################################
 #
-# validate_eprint( $eprint, $repository, $for_archive ) 
+# EP_TRIGGER_VALIDATE 'eprint' dataset trigger
 #
 ######################################################################
 #
-# $eprint 
+# $dataobj
 # - EPrint object
-# $repository 
+# $repository
 # - Repository object (the current repository)
 # $for_archive
-# - boolean (see comments at the start of the validation section)
-#
-# returns: @problems
-# - ARRAY of DOM objects (may be null)
+# - Is this being checked to go live (`1` means it is)
+# $problems
+# - ARRAYREF of DOM objects
 #
 ######################################################################
+#
 # Validate the whole eprint, this is the last part of a full 
 # validation so you don't need to duplicate tests in 
 # validate_eprint_meta, validate_field or validate_document.
 #
 ######################################################################
 
-$c->{validate_eprint} = sub
-{
-	my( $eprint, $repository, $for_archive ) = @_;
-
-	my $xml = $repository->xml();
-
-	my @problems = ();
+$c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_VALIDATE, sub {
+	my( %args ) = @_;
+	my( $repository, $eprint, $problems ) = @args{qw( repository dataobj problems )};
 
 	# If we don't have creators (eg. for a book) then we 
 	# must have editor(s). To disable that rule, remove the 
@@ -37,15 +33,12 @@ $c->{validate_eprint} = sub
 	if( !$eprint->is_set( "creators" ) && 
 		!$eprint->is_set( "editors" ) )
 	{
-		my $fieldname = $xml->create_element( "span", class=>"ep_problem_field:creators" );
-		push @problems, $repository->html_phrase( 
+		my $fieldname = $repository->make_element( "span", class=>"ep_problem_field:creators" );
+		push @$problems, $repository->html_phrase( 
 				"validate:need_creators_or_editors",
 				fieldname=>$fieldname );
 	}
-
-
-	return( @problems );
-};
+}, id => 'creator_or_editor');
 
 # If you want to import legacy data which is exempt from the normal
 # validation methods, then uncomment this function and make it return

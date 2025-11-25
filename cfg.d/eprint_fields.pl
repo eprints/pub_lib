@@ -336,7 +336,7 @@ push @{$c->{fields}->{eprint}},
 {
 	name => 'article_number',
 	type => 'text',
-	maxlength => 10,
+	maxlength => 32,
 },
 
 {

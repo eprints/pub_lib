@@ -1,18 +1,21 @@
 # Selected List of relationships contributors can have to an item.
 
+-common
 http://www.loc.gov/loc.terms/relators/AUT   # Author
 http://www.loc.gov/loc.terms/relators/EDT   # Editor
-http://www.loc.gov/loc.terms/relators/OTH   # Other
-
+-people
 http://www.loc.gov/loc.terms/relators/CND   # Conductor
-http://www.loc.gov/loc.terms/relators/CPH   # Copyright holder
-http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
-http://www.loc.gov/loc.terms/relators/FND   # Funder
 http://www.loc.gov/loc.terms/relators/LYR   # Lyricist
+http://www.loc.gov/loc.terms/relators/THS   # Thesis advisor
+http://www.loc.gov/loc.terms/relators/CUR   # Curator of an exhibition
+-associations
+http://www.loc.gov/loc.terms/relators/FND   # Funder
+http://www.loc.gov/loc.terms/relators/PBL   # Publisher
+-other
+http://www.loc.gov/loc.terms/relators/OTH   # Other
+http://www.loc.gov/loc.terms/relators/CPH   # Copyright holder
 http://www.loc.gov/loc.terms/relators/PTA   # Patent applicant
 http://www.loc.gov/loc.terms/relators/PRO   # Producer
-http://www.loc.gov/loc.terms/relators/PBL   # Publisher
-http://www.loc.gov/loc.terms/relators/THS   # Thesis advisor
 
 # Full List of relationships contributors can have to an item.
 

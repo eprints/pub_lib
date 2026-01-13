@@ -36,13 +36,13 @@
   </epc:choose>
   <component id="c_contributors">><field ref="contributors" /></component>
 -->
-  <component id="c_contributions">><field ref="contributions" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/contributor" /></component>
+  <component id="c_contributions"><field ref="contributions" required="yes" input_lookup_url="{$config{rel_cgipath}}/users/lookup/contributor" /></component>
 
   <epc:if test="type = 'exhibition'">
-    <component id="c_num_pieces">><field ref="num_pieces"/></component>
+    <component id="c_num_pieces"><field ref="num_pieces"/></component>
   </epc:if>
 
-  <component id="c_divisions">><field ref="divisions" /></component>
+  
 
   <component id="c_publication_details" type="Field::Multi">
 	  <title><epc:phrase ref="archive:workflow:stage:core:publication_details:title" /></title>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<!-- 
+	Summary page citation 
+-->
+
+<cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:epc="http://eprints.org/ep3/control" xmlns:cite="http://eprints.org/ep3/citation" >
+
+  <p style="margin-bottom: 1em">
+    <epc:print expr="$item.citation('default')" />
+  </p>
+
+</cite:citation>
+

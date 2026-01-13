@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<!-- 
+	Display the AI summaries for the item (if they exist) 
+-->
+
+<cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:epc="http://eprints.org/ep3/control" xmlns:cite="http://eprints.org/ep3/citation" >
+
+  <epc:if test="$item.field_exists('ai_summary') and $item.is_set('ai_summary')">
+    <div class="alert alert-info" role="alert">
+      <p><strong>AI Summary:</strong></p>
+      <epc:print expr="ai_summary" />
+    </div>
+  </epc:if>
+  <epc:if test="$item.field_exists('ai_topics') and $item.is_set('ai_topics')">
+    <div class="alert alert-info" role="alert">
+      <p class="mb-1"><strong>AI Topics:</strong></p>
+      <div class="">The following topics are generate through an AI service. Clicking on them will take you to a search result page with related items.</div><br/>
+      <epc:print expr="ai_topics" />
+    </div>
+  </epc:if>
+
+</cite:citation>
+

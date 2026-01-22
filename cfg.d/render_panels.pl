@@ -90,7 +90,7 @@ $c->{render_panels} = sub
         # render later when the tile order has been confirmed
         $content_stash{ "$tile_order:$number_of_panels" } = $div;
 
-	my $button = $repository->make_element( "li", "class" => "ep_panel_links ${id}_links nav-item nav-link p-2 fs-6", id => "${id}_links_$p", onfocusin => "ep_open_panel(event, '$id', '$p')", "tabindex" => -100-$number_of_panels, role => "tab", "aria-controls" => "$p" );
+	my $button = $repository->make_element( "li", "class" => "ep_panel_links ${id}_links nav-item nav-link p-2 fs-4", id => "${id}_links_$p", onfocusin => "ep_open_panel(event, '$id', '$p')", "tabindex" => -100-$number_of_panels, role => "tab", "aria-controls" => "$p" );
         $button->appendChild( $repository->make_text( $panels->{$p}->{title} ) );
 	$buttons->appendChild( $button );
 

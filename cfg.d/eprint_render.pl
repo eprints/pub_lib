@@ -65,9 +65,9 @@ $c->{eprint_summary_panels_local} =
   docs_audio =>  {
     title => "Audio", citation => "panel_render", show_empty => 1, params => {},
     render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "audio" ); }, },
-  #docs_text => {
-  #  title => "Texts", citation => "panel_render", show_empty => 1, params => {},
-  #  render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "text" ); }, },
+  docs_text => {
+    title => "Texts", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "text" ); }, },
   docs_slideshow =>  {
     title => "Slideshows", citation => "panel_render", show_empty => 1, params => {},
     render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "slideshows" ); }, },
@@ -80,6 +80,9 @@ $c->{eprint_summary_panels_local} =
   docs_other => {
     title => "Other Docs", citation => "panel_render", show_empty => 1, params => {},
     render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "other" ); }, },
+  docs_restricted => {
+    title => "Restricted", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "restricted" ); }, },
 
   # show the main eprint metadata fields
   metadata =>
@@ -295,7 +298,15 @@ $c->{eprint_render} = sub
 
 	$page->appendChild( $eprint->render_citation( "summary_page_citation", %fragments, flags=>$flags ) );
 	$page->appendChild( $eprint->render_citation( "summary_page_ai_summaries", %fragments, flags=>$flags ) );
-	$page->appendChild( $eprint->render_citation( "summary_page_doc_preview", %fragments, flags=>$flags ) );
+	my @docs = $eprint->get_all_documents;
+	for my $doc ( @docs )
+	{
+		next if $doc->get_value("security") =~ m/validuser|staffonly/;
+		if ( $doc->get_value("format") =~ m/text/ ) {
+			$page->appendChild( $doc->render_citation( "summary_page_doc_pdf_preview", params => {} ) );
+			last;
+		}
+	}
 	$page->appendChild( &{$panelfn}( $eprint, $repository ) );
 	$page->appendChild( &{$docs_panelfn}( $eprint, $repository, $preview ) ) if $c->{eprint_render_docs}->{"as separate panels"}; # add docs into their own panel set under the main one
 
@@ -338,8 +349,9 @@ $c->{eprint_render_docs_as_panels} = sub
         my $docs_css = (defined $filter) ? "docs_$filter" : "docs";
         my $panel_set_id = "ep_panel_set_" . $docs_css . "_" . $eprint->get_id();
         my $reference_doc;
+	my @docs = $eprint->get_all_documents;
 
-	foreach my $doc ( $eprint->get_all_documents )
+	foreach my $doc ( @docs )
         {
                 $reference_doc = $doc;
                 $index++;

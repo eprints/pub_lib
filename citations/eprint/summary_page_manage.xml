@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<!-- 
+	Full "abstract page" (or splash page or summary page, depending on your jargon) for an eprint. 
+-->
+
+<cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:epc="http://eprints.org/ep3/control" xmlns:cite="http://eprints.org/ep3/citation" >
+
+  <epc:if test="$flags{has_multiple_versions}">
+    <epc:phrase ref="page:available_versions" />
+    <epc:print expr="$version_tree" />
+  </epc:if>
+  <epc:if test="$flags{in_commentary_thread}">
+    <epc:phrase ref="page:commentary_threads" />
+    <epc:print expr="$commentary_tree" />
+  </epc:if>
+
+  <hr class="d-none d-md-block mt-5 mb-2"/>
+
+  <epc:if test="!$flags{preview}">
+    <table class="ep_summary_page_actions ep_summary_page_actions_small">
+    <epc:foreach expr="action_list('eprint_summary_page_actions',$item)" iterator="action">
+      <tr>
+        <td><epc:print expr="$action.action_icon()" /></td>
+      </tr>
+    </epc:foreach>
+    </table>
+   </epc:if>
+
+</cite:citation>
+

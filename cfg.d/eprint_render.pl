@@ -1,52 +1,245 @@
+# four ways to show the docs, use 1, or several
+$c->{eprint_render_docs}->{"as separate panels"} = undef;	# render a set of panels under the main set for the docs to sit in
+$c->{eprint_render_docs}->{"via citation"} = undef;		# use a citation to render the docs as a list under the main panel sets, much like it used to
+$c->{eprint_render_docs}->{"as panel"} = undef;			# put the docs in a panel within the main panel set
+$c->{eprint_render_docs}->{"as panel by type"} = 1;		# use a new panel in the main set for each type of doc, so images, texts, videos etc are grouped
+
+# panels definition for use on the eprints summary page
+$c->{eprint_summary_panels_local} =
+{
+  # just show the eprint abstract
+  abstract =>
+  {
+    citation => "panel_simple",
+    title => "Abstract",
+    params =>
+    {
+    },
+    data =>
+    {
+      metadata => [ qw/ abstract / ],
+    }
+  },
+
+  # just show the eprint abstract as raw html
+  abstract_raw =>
+  {
+    citation => "panel_render",
+    title => "Abstract",
+    show_empty => 1,
+
+    render => sub 
+    {
+      my ($eprint, $repo) = @_;
+      my $abstract = $eprint->get_value("abstract");
+      return undef unless $abstract;
+      my $dom = XML::LibXML->load_html( string => $abstract );
+      my @nodelist = $dom->getElementsByTagName("body");
+      my $body = $nodelist[0];
+      return $body;   
+    },
+  },
+
+  # show the docs in a panel
+  docs =>
+  {
+    citation => "panel_render",
+    title => "Documents",
+    show_empty => 1,
+    params => {},
+    render => sub 
+    {
+      my ($eprint, $repo) = @_;
+      my $docs_panelfn = $c->{eprint_render_docs_as_panels};
+      return &{$docs_panelfn}( $eprint, $repo, 0 );
+    },
+  },
+
+  # explicitly define handlers for all default document format types, not very succinctly
+  docs_image =>  {
+    title => "Images", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "image" ); }, },
+  docs_video => {
+    title => "Videos", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "video" ); }, },
+  docs_audio =>  {
+    title => "Audio", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "audio" ); }, },
+  docs_text => {
+    title => "Texts", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "text" ); }, },
+  docs_slideshow =>  {
+    title => "Slideshows", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "slideshows" ); }, },
+  docs_spreadsheet => {
+    title => "Spreadsheets", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "spreadsheets" ); }, },
+  docs_archive =>  {
+    title => "Archives", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "archives" ); }, },
+  docs_other => {
+    title => "Other Docs", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "other" ); }, },
+  docs_restricted => {
+    title => "Restricted", citation => "panel_render", show_empty => 1, params => {},
+    render => sub { my ($eprint, $repo) = @_; my $docs_panelfn = $c->{eprint_render_docs_as_panels}; return &{$docs_panelfn}( $eprint, $repo, 0, "restricted" ); }, },
+
+  # show the main eprint metadata fields
+  metadata =>
+  {
+    citation => "panel_table",
+    title => "Information",
+    params =>
+    {
+    },
+    data =>
+    {
+      metadata => [ qw/
+title
+creators_name
+editors_name
+contributors
+id_number
+official_url
+date
+subjects
+divisions
+commentary
+publisher
+note
+      / ],
+    },
+#    dynamic_data => sub
+#    {
+#      my( $eprint, $repository ) = @_;
+#
+#      my $dynamic_data->{keys} = [ "URI" ];
+#      my $link = $repository->make_element( "a", href => $eprint->uri() );
+#         $link->appendChild( $repository->make_text( $eprint->uri() ) );
+#      $dynamic_data->{ "URI" } = $link;
+#
+#      return $dynamic_data;
+#    },
+  },
+
+  # fields more of interest to the library
+  library =>
+  {
+    citation => "panel_table",
+    title => "Library",
+    params =>
+    {
+    },
+    data =>
+    {
+      metadata => [ qw/
+type
+pres_type
+monograph_type
+thesis_type
+source
+userid
+sword_depositor
+datestamp
+rev_number
+lastmod
+      / ],
+    },
+    dynamic_data => sub
+    {
+      my( $eprint, $repository ) = @_;
+
+      my $dynamic_data->{keys} = [ "URI" ];
+      my $link = $repository->make_element( "a", href => $eprint->uri() );
+         $link->appendChild( $repository->make_text( $eprint->uri() ) );
+      $dynamic_data->{ "URI" } = $link;
+
+      return $dynamic_data;
+    },
+  },
+
+  # add IRStats2 for this item into a panel, requires 'irstats2.5'
+  stats =>
+  {
+    citation => "panel_render",
+    title => "Statistics",
+    show_empty => 1,
+    tile_order => 50, # display at the end when rendered as tiles
+    onchange => "irstats2_redraw", # name of javascript fn to call when resize/redraw happens
+
+    render => sub 
+    {
+      my ($eprint, $repo) = @_;
+      my $frag = $repo->make_element("div", onresize => "console.log('resize')");
+      my $util = $repo->get_conf( "irstats2", "util" );
+      if( $util )
+      {
+        $frag->appendChild( &{$util->{render_summary_page_totals}}( $repo, $eprint ) );
+        $frag->appendChild( &{$util->{render_summary_page_docs}}( $repo, $eprint ) );
+      }
+      return $frag;
+    },
+  },
+
+  # add a threaded discussion forum in a comment panel, requires 'annotations'
+  comments =>
+  {
+    citation => "panel_render",
+    title => "Comments",
+    show_empty => 1,
+    render => sub
+    {
+      my ($eprint, $repo) = @_;
+      my $id = $eprint->get_id;
+      my $frag = $repo->xml()->create_document_fragment();
+      $frag->appendChild( $repo->make_element( "div", id => "eprint_${id}_discuss" ) );
+      $frag->appendChild( $repo->make_javascript( "anno_init_discuss( 'eprint/${id}', '#eprint_${id}_discuss' );" ) );
+      return $frag;
+    },
+  },
+};
+
+# pass the panels config to the render function - override this in your archive config to change the panels and their order
+$c->{eprint_render_panels_local} = sub
+{
+  my( $eprint, $repository ) = @_;
+  
+  my @panels_to_show;
+  my $public_docs = 0;
+  push @panels_to_show, "abstract" if( $eprint->get_value("abstract") );
+  # push @panels_to_show, "abstract" if( $eprint->get_value("abstract_raw") );
+  push @panels_to_show, "docs"  if( $c->{eprint_render_docs}->{"as panel"} && scalar( $eprint->get_all_documents ) );
+
+  # render each doc type as its own panels, so all image together, all text docs together etc
+  if( $c->{eprint_render_docs}->{"as panel by type"} && scalar( $eprint->get_all_documents ) )
+  {
+    my %dtype_panels;
+    foreach my $doc ( $eprint->get_all_documents )
+    {
+      my $type = $doc->get_value("format");
+      $dtype_panels{ "docs_" . $type } = 1;
+    }
+
+    push @panels_to_show, (sort keys %dtype_panels); # in no meaningful order
+  }
+  #FNU-27 Hide Statistics panel when there are only restricted documents 
+  foreach my $doc ( $eprint->get_all_documents )  
+  {
+    $public_docs++ if $doc->is_public; 
+  } 
+  push @panels_to_show, "metadata";
+  push @panels_to_show, "library";
+  # push @panels_to_show, "altmetric" if( &{$c->{altmetric}->{panel}->{include_altmetric_panel}}( $repository, $eprint ) );
+  #push @panels_to_show, "stats" if( ( $repository->flavour_has("ingredients/irstats2") || $repository->flavour_has("ingredients/irstats2.5") ) && $public_docs > 0  );
+  #push @panels_to_show, "comments" if $repository->flavour_has("ingredients.spicy/annotations");
+  # call and return the main panel render code
+  return &{$c->{render_panels}}( $eprint, $repository, $c->{eprint_summary_panels_local}, \@panels_to_show );
+};
 
 $c->{summary_page_metadata} = [qw/
-	commentary
-	note
-	ids
-	keywords
-	subjects
-	divisions
-	dates
-	sword_depositor
-	userid
-	datestamp
-	lastmod
 /];
 
-# IMPORTANT NOTE ABOUT SUMMARY PAGES
-#
-# While you can completely customise them using the perl subroutine
-# below, it's easier to edit them via citation/eprint/summary_page.xml
-
-
-######################################################################
-=pod
-
-=over
-
-=item $xhtmlfragment = eprint_render( $eprint, $repository, $preview )
-
-This subroutine takes an eprint object and renders the XHTML view
-of this eprint for public viewing.
-
-Takes two arguments: the L<$eprint|EPrints::DataObj::EPrint> to render
-and the current L<$repository|EPrints::Session>.
-
-Returns a list of ( C<$page>, C<$title>[, C<$links>[, C<$template>]] )
-where C<$page>, C<$title> and C<$links> are XHTML DOM objects and
-C<$template> is a string containing the name of the template to use
-for this page.
-
-If $preview is true then this is only being shown as a preview. The C<$template> isn't honoured in this situation.
-(This is used to stop the "edit eprint" link appearing when it makes
-no sense.)
-
-=back
-
-=cut
-
-######################################################################
-
+# a version of the classic eprint render routine, with panels rendered as tabs to show the abstract and metadata fields
 $c->{eprint_render} = sub
 {
 	my( $eprint, $repository, $preview ) = @_;
@@ -93,42 +286,32 @@ $c->{eprint_render} = sub
 		$fragments{commentary_tree} = $eprint->render_version_thread( $commentary_field );
 	}
 
-if(0){	
-	# Experimental SFX Link
-	my $authors = $eprint->value( "creators" );
-	my $first_author = $authors->[0];
-	my $url ="http://demo.exlibrisgroup.com:9003/demo?";
-	#my $url = "http://aire.cab.unipd.it:9003/unipr?";
-	$url .= "title=".$eprint->value( "title" );
-	$url .= "&aulast=".$first_author->{name}->{family};
-	$url .= "&aufirst=".$first_author->{name}->{family};
-	$url .= "&date=".$eprint->value( "date" );
-	$fragments{sfx_url} = $url;
-}
-
-if(0){
-	# Experimental OVID Link
-	my $authors = $eprint->value( "creators" );
-	my $first_author = $authors->[0];
-	my $url ="http://linksolver.ovid.com/OpenUrl/LinkSolver?";
-	$url .= "atitle=".$eprint->value( "title" );
-	$url .= "&aulast=".$first_author->{name}->{family};
-	$url .= "&date=".substr($eprint->value( "date" ),0,4);
-	if( $eprint->is_set( "issn" ) ) { $url .= "&issn=".$eprint->value( "issn" ); }
-	if( $eprint->is_set( "volume" ) ) { $url .= "&volume=".$eprint->value( "volume" ); }
-	if( $eprint->is_set( "number" ) ) { $url .= "&issue=".$eprint->value( "number" ); }
-	if( $eprint->is_set( "pagerange" ) )
-	{
-		my $pr = $eprint->value( "pagerange" );
-		$pr =~ m/^([^-]+)-/;
-		$url .= "&spage=$1";
-	}
-	$fragments{ovid_url} = $url;
-}
-
 	foreach my $key ( keys %fragments ) { $fragments{$key} = [ $fragments{$key}, "XHTML" ]; }
 	
-	my $page = $eprint->render_citation( "summary_page", %fragments, flags=>$flags );
+	#my $page = $eprint->render_citation( "summary_page1", %fragments, flags=>$flags );
+	my $page = $repository->xml()->create_document_fragment();
+
+
+	my $panelfn = $c->{eprint_render_panels_local};
+	#my $panelfn = $c->{eprint_render_panels};
+	my $docs_panelfn = $c->{eprint_render_docs_as_panels};
+
+	$page->appendChild( $eprint->render_citation( "summary_page_citation", %fragments, flags=>$flags ) );
+	$page->appendChild( $eprint->render_citation( "summary_page_ai_summaries", %fragments, flags=>$flags ) );
+	my @docs = $eprint->get_all_documents;
+	for my $doc ( @docs )
+	{
+		next if $doc->get_value("security") =~ m/validuser|staffonly/;
+		if ( $doc->get_value("format") =~ m/text/ ) {
+			$page->appendChild( $doc->render_citation( "summary_page_doc_pdf_preview", params => {} ) );
+			last;
+		}
+	}
+	$page->appendChild( &{$panelfn}( $eprint, $repository ) );
+	$page->appendChild( &{$docs_panelfn}( $eprint, $repository, $preview ) ) if $c->{eprint_render_docs}->{"as separate panels"}; # add docs into their own panel set under the main one
+
+	$page->appendChild( $eprint->render_citation( "summary_page_traditional_doc_preview", %fragments, flags=>$flags ) ) if $c->{eprint_render_docs}->{"via citation"}; # add docs in the traditional way
+	$page->appendChild( $eprint->render_citation( "summary_page_manage", %fragments, flags=>$flags ) );
 
 	my $title = $eprint->render_citation("brief");
 
@@ -139,36 +322,90 @@ if(0){
 		$links->appendChild( $repository->plugin( "Export::DC" )->dataobj_to_html_header( $eprint ) );
 	}
 
-	#to define a specific template to render the abstract with, you can do something like:
-	# my $template;
-	# if( $eprint->value( "type" ) eq "article" ){
-	# 	$template = "article_template";
-	# }
-	# return ( $page, $title, $links, $template );
 	return( $page, $title, $links, "default_internal" );
 };
 
-# To only include specific fields in the <meta name="eprints.X" content="..." /> tags, defined a list of fields
-# as follows. Use sub-field names for compound fields.
-#
-#       $c->{export_fieldlists}->{eprint} = [qw/
-#               eprintid
-#               type
-#               title
-#               abstract
-#               creators_name
-#               date
-#               ...
-#       /];
+# render the documents as a set of panels, so they are easily manipulated
+# TODO: review which docs get shown, may not want all seen
+$c->{eprint_render_docs_as_panels} = sub
+{
+	my( $eprint, $session, $preview, $filter ) = @_;
+
+        my $page = $session->make_doc_fragment;
+
+	my $number_of_docs = scalar( $eprint->get_all_documents );
+	return $page unless $number_of_docs;
+
+        my $fn = $session->get_conf( "render_panels" );
+        if ( !defined($fn) || ref $fn ne "CODE" )
+        {
+                print STDERR "Cannot find definition for callback: render_panels\n";
+                return $page;
+        }
+
+        my $panels;
+        my @panels_to_show;
+        my $index = 0;
+        my $docs_css = (defined $filter) ? "docs_$filter" : "docs";
+        my $panel_set_id = "ep_panel_set_" . $docs_css . "_" . $eprint->get_id();
+        my $reference_doc;
+	my @docs = $eprint->get_all_documents;
+
+	foreach my $doc ( @docs )
+        {
+                $reference_doc = $doc;
+                $index++;
+                next if( defined($filter) && $doc->get_value("format") ne $filter ); # honour the filter if its set
+
+                $panels->{ "panel_" . $index } =
+                {
+                        title => $eprint->get_id() . ":" . $doc->get_id(),
+                        show_empty => 1,
+                        params =>
+                        {
+                                id => "panel_$index",
+                                panel_set_id => $panel_set_id,
+                                doc_index => $index -1, # zero based
+				filter => $filter,
+			},
+                        citation => "panel_render",
+			render => sub
+			{
+				my ($eprint, $repo, $params, $data) = @_;
+				return $doc->render_citation( "summary_page_doc", params => $params, data => $data );
+			}
+                };
+                push @panels_to_show,  "panel_" . $index;
+        }
+
+#	if( $number_of_docs == 1 ) # pad with blank
+#	{
+#		$panels->{ "panel_blank" } = { show_empty => 1, citation => "panel_blank", title => "" };
+#		unshift @panels_to_show, "panel_blank";
+#	}
+
+        my $panels_div = &{$fn}(
+                $reference_doc,
+                $session,
+                $panels,
+                \@panels_to_show,
+                "as_tiles",
+		$panel_set_id );
+
+        $page->appendChild( $panels_div );
+
+        return $page;
+};
 
 
 =head1 COPYRIGHT
 
 =for COPYRIGHT BEGIN
 
-Copyright 2022 University of Southampton.
-EPrints 3.4 is supplied by EPrints Services.
-
+Copyright 2016 University of Southampton.
+EPrints 3.4 preview 2 is supplied by EPrints Services.
+This software is supplied as is and is for demonstration purposes.
+This software may be used with permission and must not be redistributed.
 http://www.eprints.org/eprints-3.4/
 
 =for COPYRIGHT END

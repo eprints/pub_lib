@@ -301,8 +301,8 @@ $c->{eprint_render_panels_local} = sub
   my @panels_to_show;
   my $public_docs = 0;
   push @panels_to_show, "abstract" if( $eprint->get_value("abstract") );
-  push @panels_to_show, "entities_people"; # if( $eprint->get_value("abstract") );
-  push @panels_to_show, "entities_organisations"; # if( $eprint->get_value("abstract") );
+  push @panels_to_show, "entities_people";
+  push @panels_to_show, "entities_organisations";
   # push @panels_to_show, "abstract" if( $eprint->get_value("abstract_raw") );
   push @panels_to_show, "docs"  if( $c->{eprint_render_docs}->{"as panel"} && scalar( $eprint->get_all_documents ) );
 
@@ -318,7 +318,6 @@ $c->{eprint_render_panels_local} = sub
 
     push @panels_to_show, (sort keys %dtype_panels); # in no meaningful order
   }
-  #FNU-27 Hide Statistics panel when there are only restricted documents 
   foreach my $doc ( $eprint->get_all_documents )  
   {
     $public_docs++ if $doc->is_public; 
@@ -329,7 +328,6 @@ $c->{eprint_render_panels_local} = sub
   #push @panels_to_show, "stats" if( ( $repository->flavour_has("ingredients/irstats2") || $repository->flavour_has("ingredients/irstats2.5") ) && $public_docs > 0  );
   #push @panels_to_show, "comments" if $repository->flavour_has("ingredients.spicy/annotations");
   # call and return the main panel render code
-  print STDERR EPrints->dump(@panels_to_show);
   return &{$c->{render_panels}}( $eprint, $repository, $c->{eprint_summary_panels_local}, \@panels_to_show );
 };
 

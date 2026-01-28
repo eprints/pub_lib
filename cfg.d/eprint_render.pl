@@ -54,12 +54,10 @@ $c->{eprint_summary_panels_local} =
  
       if( $session->get_repository->can_call( 'filter_eprint_contributions_by_entity_type' ) )
       {
-        print STDERR "can_call filter_eprint_contributions_by_entity_type\n";
         $contributions = $session->get_repository->call( 'filter_eprint_contributions_by_entity_type', $session, $contributions, "person" );
       }
       else
       {
-        print STDERR "can NOT call filter_eprint_contributions_by_entity_type\n";
         return;
       }
 
@@ -101,12 +99,10 @@ $c->{eprint_summary_panels_local} =
  
       if( $session->get_repository->can_call( 'filter_eprint_contributions_by_entity_type' ) )
       {
-        print STDERR "can_call filter_eprint_contributions_by_entity_type\n";
         $contributions = $session->get_repository->call( 'filter_eprint_contributions_by_entity_type', $session, $contributions, "organisation" );
       }
       else
       {
-        print STDERR "can NOT call filter_eprint_contributions_by_entity_type\n";
         return;
       }
 

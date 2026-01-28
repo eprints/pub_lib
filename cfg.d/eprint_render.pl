@@ -302,7 +302,9 @@ $c->{eprint_render_panels_local} = sub
   my $public_docs = 0;
   push @panels_to_show, "abstract" if( $eprint->get_value("abstract") );
   push @panels_to_show, "entities_people";
-  push @panels_to_show, "entities_organisations";
+  if( $repository->can_call( 'filter_eprint_contributions_by_entity_type' ) && scalar(@{$repository->call('filter_eprint_contributions_by_entity_type', undef, $eprint->get_value( "contributions" ), "organisation")})){
+	push @panels_to_show, "entities_organisations";
+  }
   # push @panels_to_show, "abstract" if( $eprint->get_value("abstract_raw") );
   push @panels_to_show, "docs"  if( $c->{eprint_render_docs}->{"as panel"} && scalar( $eprint->get_all_documents ) );
 

@@ -40,6 +40,96 @@ $c->{eprint_summary_panels_local} =
     },
   },
 
+  # ENTITIES - people
+  entities_people =>
+  {
+    title => "People",
+    citation => "panel_render",
+    show_empty => 1,
+    render => sub
+    {
+      my ( $eprint, $session ) = @_;
+
+      my $contributions = $eprint->get_value( "contributions" );
+ 
+      if( $session->get_repository->can_call( 'filter_eprint_contributions_by_entity_type' ) )
+      {
+        $contributions = $session->get_repository->call( 'filter_eprint_contributions_by_entity_type', $session, $contributions, "person" );
+      }
+      else
+      {
+        return;
+      }
+
+      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 m-1 g-4");
+      my $eprint_ds = $session->dataset( "eprint" );
+      my $person_ds = $session->dataset( "person" );
+
+      for my $contribution ( @$contributions )
+      {
+		my $person = $person_ds->dataobj( $contribution->{contributor}->{entityid} );
+
+		my $type_field = $eprint_ds->get_field( "contributors_type" );
+		my $type_value = $type_field->render_single_value( $session, $contribution->{type} );
+
+		my $flags = {};
+		my %fragments = ( %{$contribution->{contributor}}, type => $type_value );
+
+		foreach my $key ( keys %fragments ) { $fragments{$key} = [ $fragments{$key}, "XHTML" ]; }
+
+		my $citation = $person->render_citation( "summary_box", %fragments, flags=>$flags );
+		$frag->appendChild( $citation );
+      }
+
+      return $frag;
+    },
+  },
+
+  # ENTITIES - organisations
+  entities_organisations =>
+  {
+    title => "Organisations",
+    citation => "panel_render",
+    show_empty => 1,
+    render => sub
+    {
+      my ( $eprint, $session ) = @_;
+
+      my $contributions = $eprint->get_value( "contributions" );
+ 
+      if( $session->get_repository->can_call( 'filter_eprint_contributions_by_entity_type' ) )
+      {
+        $contributions = $session->get_repository->call( 'filter_eprint_contributions_by_entity_type', $session, $contributions, "organisation" );
+      }
+      else
+      {
+        return;
+      }
+
+      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 m-1 g-4");
+      my $eprint_ds = $session->dataset( "eprint" );
+      my $organisation_ds = $session->dataset( "organisation" );
+
+      for my $contribution ( @$contributions )
+      {
+		my $organisation = $organisation_ds->dataobj( $contribution->{contributor}->{entityid} );
+
+		my $type_field = $eprint_ds->get_field( "contributors_type" );
+		my $type_value = $type_field->render_single_value( $session, $contribution->{type} );
+
+		my $flags = {};
+		my %fragments = ( %{$contribution->{contributor}}, type => $type_value );
+
+		foreach my $key ( keys %fragments ) { $fragments{$key} = [ $fragments{$key}, "XHTML" ]; }
+
+		my $citation = $organisation->render_citation( "summary_box", %fragments, flags=>$flags );
+		$frag->appendChild( $citation );
+      }
+
+      return $frag;
+    },
+  },
+
   # show the docs in a panel
   docs =>
   {
@@ -207,6 +297,10 @@ $c->{eprint_render_panels_local} = sub
   my @panels_to_show;
   my $public_docs = 0;
   push @panels_to_show, "abstract" if( $eprint->get_value("abstract") );
+  push @panels_to_show, "entities_people";
+  if( $repository->can_call( 'filter_eprint_contributions_by_entity_type' ) && scalar(@{$repository->call('filter_eprint_contributions_by_entity_type', undef, $eprint->get_value( "contributions" ), "organisation")})){
+	push @panels_to_show, "entities_organisations";
+  }
   # push @panels_to_show, "abstract" if( $eprint->get_value("abstract_raw") );
   push @panels_to_show, "docs"  if( $c->{eprint_render_docs}->{"as panel"} && scalar( $eprint->get_all_documents ) );
 
@@ -222,7 +316,6 @@ $c->{eprint_render_panels_local} = sub
 
     push @panels_to_show, (sort keys %dtype_panels); # in no meaningful order
   }
-  #FNU-27 Hide Statistics panel when there are only restricted documents 
   foreach my $doc ( $eprint->get_all_documents )  
   {
     $public_docs++ if $doc->is_public; 

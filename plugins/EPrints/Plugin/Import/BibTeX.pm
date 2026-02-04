@@ -512,6 +512,11 @@ sub convert_input
 		{
 			$epdata->{date} .= "-" . $months{$month};
 		}
+		elsif( $month >= 1 && $month <= 12 )
+		{
+			# If the month is already a number, pad it two digits
+			$epdata->{date} .= '-' . sprintf( '%02d', $month );
+		}
 		else
 		{
 			$plugin->warning( $plugin->phrase( "skip_month", month => $month ) );

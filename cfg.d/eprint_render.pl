@@ -399,6 +399,10 @@ $c->{eprint_render} = sub
 			$page->appendChild( $doc->render_citation( "summary_page_doc_pdf_preview", params => {} ) );
 			last;
 		}
+    if ( $doc->get_value("format") =~ m/image/ || $doc->get_value("format") =~ m/video/  ) {
+			$page->appendChild( $doc->render_citation( "summary_page_doc_visual_preview", params => {} ) );
+			last;
+		}
 	}
 	$page->appendChild( &{$panelfn}( $eprint, $repository ) );
 	$page->appendChild( &{$docs_panelfn}( $eprint, $repository, $preview ) ) if $c->{eprint_render_docs}->{"as separate panels"}; # add docs into their own panel set under the main one

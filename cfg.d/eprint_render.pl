@@ -413,6 +413,8 @@ $c->{eprint_render} = sub
 	{
 		$links->appendChild( $repository->plugin( "Export::Simple" )->dataobj_to_html_header( $eprint ) );
 		$links->appendChild( $repository->plugin( "Export::DC" )->dataobj_to_html_header( $eprint ) );
+        $links->appendChild( $repository->plugin( "Export::HighwirePress" )->dataobj_to_html_header( $eprint ) );
+        $links->appendChild( $repository->plugin( "Export::Prism" )->dataobj_to_html_header( $eprint ) );
 	}
 
 	return( $page, $title, $links, "default_internal" );

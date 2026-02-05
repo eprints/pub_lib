@@ -421,7 +421,7 @@ $c->{eprint_render} = sub
         $links->appendChild( $repository->plugin( "Export::Prism" )->dataobj_to_html_header( $eprint ) );
 	}
 
-	return( $page, $title, $links, "default_internal" );
+	return( $page, $title, $links, "default" );
 };
 
 # render the documents as a set of panels, so they are easily manipulated

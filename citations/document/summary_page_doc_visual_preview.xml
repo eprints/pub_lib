@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<!-- 
+	Display an image or video in the summary page, above the tabs
+-->
+
+<cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:epc="http://eprints.org/ep3/control" xmlns:cite="http://eprints.org/ep3/citation" >
+  <div class="abstract-top-container">
+    <epc:choose>
+      <epc:when test="format = 'video'">
+        <video src="{$item.url()}" width="100%" class="ep_embedded_video object-fit-scale abstract-top-image" controls="true"></video>
+      </epc:when>
+      <epc:when test="format = 'audio'">
+        <audio class="audio-preview" controls="true">
+          <source src="{$item.url()}"/>
+        </audio>
+      </epc:when>
+      <epc:when test="format = 'image'">
+        <epc:if test="$item.thumbnail_url('preview').is_set()">
+          <img src="{$item.thumbnail_url('preview')}" class="object-fit-scale abstract-top-image"  alt="{$item.property('main')}"/>
+        </epc:if>
+        <epc:if test="!$item.thumbnail_url('preview').is_set()">
+        <img src="{$item.url()}" class="object-fit-scale abstract-top-image"  alt="{$item.property('main')}"/>
+        </epc:if>
+      </epc:when>
+    </epc:choose>
+  </div>
+</cite:citation>
+

@@ -28,7 +28,7 @@ $c->{datasets}->{eprint}->{search}->{staff} =
 	default_order => "byyear",
 	show_zero_results => 1,
 	staff => 1,
-	template => "default",
+	template => "default_internal",
 };
 
 =head1 COPYRIGHT

@@ -4,27 +4,30 @@ $c->{set_eprint_automatic_fields} = sub
 	my( $eprint ) = @_;
 
 	my $type = $eprint->value( "type" );
-	if( $type eq "monograph" || $type eq "thesis" )
+	if ( defined $type )
 	{
-		unless( $eprint->is_set( "institution" ) )
+		if( $type eq "monograph" || $type eq "thesis" )
 		{
- 			# This is a handy place to make monographs and thesis default to
-			# your institution
-			#
-			# $eprint->set_value( "institution", "University of Southampton" );
+			unless( $eprint->is_set( "institution" ) )
+			{
+ 				# This is a handy place to make monographs and thesis default to
+				# your institution
+				#
+				# $eprint->set_value( "institution", "University of Southampton" );
+			}
 		}
-	}
 
-	if( $type eq "patent" )
-	{
-		$eprint->set_value( "ispublished", "pub" );
-		# patents are always published!
-	}
+		if( $type eq "patent" )
+		{
+			$eprint->set_value( "ispublished", "pub" );
+			# patents are always published!
+		}
 
-	if( $type eq "thesis" && !$eprint->is_set( "ispublished" ) )
-	{
-		$eprint->set_value( "ispublished", "unpub" );
-		# thesis are usually unpublished.
+		if( $type eq "thesis" && !$eprint->is_set( "ispublished" ) )
+		{
+			$eprint->set_value( "ispublished", "unpub" );
+			# thesis are usually unpublished.
+		}
 	}
 
 	my @docs = $eprint->get_all_documents();

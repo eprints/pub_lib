@@ -61,7 +61,7 @@ $c->{eprint_summary_panels_local} =
         return;
       }
 
-      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 m-1 g-4");
+      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-1 mb-4");
       my $eprint_ds = $session->dataset( "eprint" );
       my $person_ds = $session->dataset( "person" );
 
@@ -106,7 +106,7 @@ $c->{eprint_summary_panels_local} =
         return;
       }
 
-      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 m-1 g-4");
+      my $frag = $session->make_element("div", class => "row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-1 mb-4");
       my $eprint_ds = $session->dataset( "eprint" );
       my $organisation_ds = $session->dataset( "organisation" );
 

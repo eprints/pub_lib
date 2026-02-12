@@ -1,7 +1,7 @@
 $c->{entities}->{field_contribution_types}->{eprint}->{person} = {
-    creators => 'http://www.loc.gov/loc.terms/relators/AUT',
-    editors => 'http://www.loc.gov/loc.terms/relators/EDT',
-    contributors => 'http://www.loc.gov/loc.terms/relators/OTH',
+    creators => 'https://id.loc.gov/vocabulary/relators/aut',
+    editors => 'https://id.loc.gov/vocabulary/relators/edt',
+    contributors => 'https://id.loc.gov/vocabulary/relators/oth',
 };
 
 $c->{entities}->{field_contribution_maps}->{eprint}->{person} = {
@@ -21,11 +21,11 @@ $c->{entities}->{field_contribution_maps}->{eprint}->{person} = {
 };
 
 $c->{entities}->{field_contribution_types}->{eprint}->{organisation} = {
-    corp_creators => 'http://www.loc.gov/loc.terms/relators/AUT',
-    publisher => 'http://www.loc.gov/loc.terms/relators/PBL',
-    funders => 'http://www.loc.gov/loc.terms/relators/FND',
-    patent_applicant => 'http://www.loc.gov/loc.terms/relators/PTA',
-    copyright_holders => 'http://www.loc.gov/loc.terms/relators/CPH',
+    corp_creators => 'https://id.loc.gov/vocabulary/relators/aut',
+    publisher => 'https://id.loc.gov/vocabulary/relators/pbl',
+    funders => 'https://id.loc.gov/vocabulary/relators/fnd',
+    patent_applicant => 'https://id.loc.gov/vocabulary/relators/pta',
+    copyright_holders => 'https://id.loc.gov/vocabulary/relators/cph',
 };
 
 # All existing field that map to organisations are non-compound fields so use default name mapping

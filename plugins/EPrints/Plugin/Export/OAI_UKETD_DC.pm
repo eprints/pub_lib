@@ -57,7 +57,7 @@ $DEFAULT{thesis_type_to_quallevel} = {
 # default contributor_type that identifies a thesis advisor
 # can be overridden at archive level eg.
 # $c->{plugins}->{"Export::OAI_UKETD_DC"}->{params}->{contributor_type_thesis_advisor} = "advisor";
-$DEFAULT{contributor_type_thesis_advisor} = "http://www.loc.gov/loc.terms/relators/THS";
+$DEFAULT{contributor_type_thesis_advisor} = "http://id.loc.gov/vocabulary/relators/ths";
 
 sub new
 {

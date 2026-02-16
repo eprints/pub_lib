@@ -264,15 +264,15 @@ sub contributors
 			else
 			{
 				my %contributor_types = (
-					"author" => "http://www.loc.gov/loc.terms/relators/AUT",
-					"editor" => "http://www.loc.gov/loc.terms/relators/EDT",
-					"chair" => "http://www.loc.gov/loc.terms/relators/EDT",
-					"reviewer" => "http://www.loc.gov/loc.terms/relators/REV",
-					"reviewer-assistant" => "http://www.loc.gov/loc.terms/relators/REV",
-					"stats-reviewer" => "http://www.loc.gov/loc.terms/relators/REV",
-					"reviewer-external" => "http://www.loc.gov/loc.terms/relators/REV",
-					"reader" => "http://www.loc.gov/loc.terms/relators/OTH",
-					"translator" => "http://www.loc.gov/loc.terms/relators/TRL",
+					"author" => "http://id.loc.gov/vocabulary/relators/aut",
+					"editor" => "http://id.loc.gov/vocabulary/relators/edt",
+					"chair" => "http://id.loc.gov/vocabulary/relators/edt",
+					"reviewer" => "http://id.loc.gov/vocabulary/relators/rev",
+					"reviewer-assistant" => "http://id.loc.gov/vocabulary/relators/rev",
+					"stats-reviewer" => "http://id.loc.gov/vocabulary/relators/rev",
+					"reviewer-external" => "http://id.loc.gov/vocabulary/relators/rev",
+					"reader" => "http://id.loc.gov/vocabulary/relators/oth",
+					"translator" => "http://id.loc.gov/vocabulary/relators/trl",
 				);
 				push @contributors, { name => $person_name, type => $contributor_types{$role} , orcid => $orcid };
 			}

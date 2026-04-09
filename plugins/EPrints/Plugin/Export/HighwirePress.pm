@@ -163,7 +163,7 @@ sub convert_dataobj
 			my $subject_obj = EPrints::DataObj::Subject->new( $plugin->{repository}, $subject );
 			my $subject_name = $subject;
 			if (defined $subject_obj){
-				# short term workaround, only do this if $subject_obj actually exists. this is subtly different to Subject::get_value_label
+				# short term workaround, only do this if $subject_obj actually exists. otherwise it's just raw name
 				my $subject_name = $subject_obj->render_description();
 			}
 

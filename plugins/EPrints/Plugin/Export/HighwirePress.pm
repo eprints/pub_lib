@@ -161,7 +161,11 @@ sub convert_dataobj
 	if( $eprint->exists_and_set( 'subjects' ) ) {
 		for my $subject (@{$eprint->get_value( 'subjects' )}) {
 			my $subject_obj = EPrints::DataObj::Subject->new( $plugin->{repository}, $subject );
-			my $subject_name = $subject_obj->render_description();
+			my $subject_name = $subject;
+			if (defined $subject_obj){
+				# short term workaround, only do this if $subject_obj actually exists. otherwise it's just raw name
+				my $subject_name = $subject_obj->render_description();
+			}
 
 			$keywords .= '; ' if $keywords ne '';
 			$keywords .= $subject_name;
@@ -326,4 +330,3 @@ License along with EPrints 3.4.
 If not, see L<http://www.gnu.org/licenses/>.
 
 =for LICENSE END
-

@@ -78,7 +78,7 @@ $c->{email_for_doc_request} = sub
 
 =begin COPYRIGHT_AND_LICENSE
 
-Copyright University of Southampton under the GNU Lesser General Public License. See https://github.com/eprints/eprint3.5/COPYING for further information.
+Copyright University of Southampton under the GNU Lesser General Public License. See https://github.com/eprints/eprints3.5/blob/master/COPYING for further information.
 
 EPrints 3.5 is supplied by EPrints Services.
 

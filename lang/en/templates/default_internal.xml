@@ -25,7 +25,7 @@
               <div class="d-block d-md-none py-3 pe-3">
                 <div class="d-flex">
                   <form method="get" accept-charset="utf-8" action="{$config{rel_cgipath}}/search" role="search" class="input-group input-group-sm w-100">
-                    <input type="text" class="form-control" placeholder="Search…" aria-label="Search" aria-describedby="basic-addon2" name="q"/>
+                    <input type="text" class="form-control" placeholder="Search…" aria-label="Search" name="q"/>
                     <input type="hidden" name="_action_search" value="Search"/>
                     <input type="hidden" name="_order" value="bytitle"/>
                     <input type="hidden" name="basic_srchtype" value="ALL"/>
@@ -34,6 +34,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                       </svg>
+                      <span class="sr-only">Simple Search</span>
                     </button>
                   </form>
                   <a href="/cgi/search/advanced" class="ms-3">
@@ -70,7 +71,7 @@
                 <div class="d-block d-sm-none pt-3 pe-3">
                   <div class="d-flex">
                     <form method="get" accept-charset="utf-8" action="{$config{rel_cgipath}}/search" role="search" class="input-group input-group-sm w-100">
-                      <input type="text" class="form-control" placeholder="Search…" aria-label="Search" aria-describedby="basic-addon2" name="q"/>
+                      <input type="text" class="form-control" placeholder="Search…" aria-label="Search" name="q"/>
                       <input type="hidden" name="_action_search" value="Search"/>
                       <input type="hidden" name="_order" value="bytitle"/>
                       <input type="hidden" name="basic_srchtype" value="ALL"/>
@@ -79,6 +80,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                         </svg>
+                        <span class="sr-only">Simple Search</span>
                       </button>
                     </form>
                     <a href="/cgi/search/advanced" class="ms-3">
@@ -157,11 +159,7 @@
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                     <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
                   </svg>
-                </a>
-              </div>
-              <div class="me-3">
-                <a href="/" class="text-black text-decoration-none">
-                  <epc:phrase ref="archive_name"/>
+                  <span class="ms-xxl-3"><epc:phrase ref="archive_name"/></span>
                 </a>
               </div>
               <div class="me-3">
@@ -175,7 +173,7 @@
             </div>
             <div class="d-flex">
               <form method="get" accept-charset="utf-8" action="{$config{rel_cgipath}}/search" role="search" class="input-group input-group-sm w-100">
-                <input type="text" class="form-control" placeholder="Search…" aria-label="Search" aria-describedby="basic-addon2" name="q"/>
+                <input type="text" class="form-control" placeholder="Search…" aria-label="Search" name="q"/>
                 <input type="hidden" name="_action_search" value="Search"/>
                 <input type="hidden" name="_order" value="bytitle"/>
                 <input type="hidden" name="basic_srchtype" value="ALL"/>
@@ -184,6 +182,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                   </svg>
+                  <span class="sr-only">Simple Search</span>
                 </button>
               </form>
               <a href="/cgi/search/advanced" class="ms-2">

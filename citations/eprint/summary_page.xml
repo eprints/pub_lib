@@ -118,14 +118,14 @@
 
   <epc:if test="!$flags{preview}">
     <epc:phrase ref="summary_page:actions"/>
-    <table class="ep_summary_page_actions">
+    <div class="ep_summary_page_actions">
     <epc:foreach expr="action_list('eprint_summary_page_actions',$item)" iterator="action">
-      <tr>
-        <td><epc:print expr="$action.action_icon()" /></td>
-        <td><epc:print expr="$action.action_title()" /></td>
-      </tr>
+      <div>
+        <div><epc:print expr="$action.action_icon()" /></div>
+        <div><epc:print expr="$action.action_title()" /></div>
+      </div>
     </epc:foreach>
-    </table>
+    </div>
   </epc:if>
 
 </cite:citation>

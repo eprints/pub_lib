@@ -18,13 +18,13 @@
   <hr class="d-none d-md-block mt-5 mb-2"/>
 
   <epc:if test="!$flags{preview}">
-    <table class="ep_summary_page_actions ep_summary_page_actions_small">
+    <div class="ep_summary_page_actions ep_summary_page_actions_small">
     <epc:foreach expr="action_list('eprint_summary_page_actions',$item)" iterator="action">
-      <tr>
-        <td><epc:print expr="$action.action_icon()" /></td>
-      </tr>
+      <div>
+        <div><epc:print expr="$action.action_icon()" /></div>
+      </div>
     </epc:foreach>
-    </table>
+    </div>
    </epc:if>
 
 </cite:citation>

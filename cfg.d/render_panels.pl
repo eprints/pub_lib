@@ -62,7 +62,7 @@ $c->{render_panels} = sub
         $processed_params{ render } = [ $render_rv, "XHTML" ];
       }
 
-      # if we have a dynamic data functions, run then and pass these to use in the citation - useful for setting up values based on the current dataobj, which are hard to evaluate in a citation or in a custon renderer
+      # if we have a dynamic data functions, run then and pass these to use in the citation - useful for setting up values based on the current dataobj, which are hard to evaluate in a citation or in a custom renderer
       my $fn0 = $panels->{$p}->{dynamic_data_start};
       my $fn1 = $panels->{$p}->{dynamic_data};
       my $fn2 = $panels->{$p}->{dynamic_data_end};
@@ -76,7 +76,7 @@ $c->{render_panels} = sub
       if( $use_panel )
       {
         my $panel_order = ( $panels->{$p}->{panel_order} ) ? $panels->{$p}->{panel_order} : $number_of_panels; # not actively used
-        my $tile_order  = ( $panels->{$p}->{tile_order} )  ? $panels->{$p}->{tile_order} : $number_of_panels; # used to determin the order when expanded into tiles
+        my $tile_order  = ( $panels->{$p}->{tile_order} )  ? $panels->{$p}->{tile_order} : $number_of_panels; # used to determine the order when expanded into tiles
 
         my $div = $repository->make_element( "div", "id" => "$p", class => "ep_panel_wrapper", ep_panel_order => $panel_order, ep_tile_order => $tile_order, role => "tabpanel", "aria-labelledby" => "${id}_links_$p" );
         $div->setAttribute( "ep_panel_onchange", $panels->{$p}->{onchange} ) if $panels->{$p}->{onchange};

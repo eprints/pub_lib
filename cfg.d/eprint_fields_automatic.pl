@@ -88,7 +88,7 @@ $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 
 # To prevent citations, exports etc. from breaking, populate the default  id_number'
 # field using a suitable value from the new 'ids' field
-# If multiple IDs of the same type are permitted first ID fo type with the highest
+# If multiple IDs of the same type are permitted first ID for type with the highest
 # priority will be used for in id_number field.
 $c->add_dataset_trigger( 'eprint', EPrints::Const::EP_TRIGGER_BEFORE_COMMIT, sub
 {

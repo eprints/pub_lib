@@ -17,6 +17,13 @@ $c->{search}->{simple} =
 	title_phrase => "cgi/search:simple_search",
 	citation => "result",
 	page_size => 20,
+	facets => [
+		{ field_id => "type" },
+		{ field_id => "ispublished" },
+		{ field_id => "publisher" },
+		{ field_id => "publication" },
+		{ field_id => "date;res=year", field_name => "metafield_fieldopt_min_resolution_year" },
+	],
 	order_methods => {
 		"byyear" 	 => "-date/creators_name/title",
 		"byyearoldest"	 => "date/creators_name/title",

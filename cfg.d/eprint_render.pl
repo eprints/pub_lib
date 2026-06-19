@@ -395,11 +395,11 @@ $c->{eprint_render} = sub
 	for my $doc ( @docs )
 	{
 		next if $doc->get_value("security") =~ m/validuser|staffonly/;
-		if ( $doc->get_value("mime_type") eq "application/pdf") {
+		if ( $doc->is_set("mime_type") &&  $doc->get_value("mime_type") eq "application/pdf") {
 			$page->appendChild( $doc->render_citation( "summary_page_doc_pdf_preview", params => {} ) );
 			last;
 		}
-    if ( $doc->get_value("format") =~ m/image/ || $doc->get_value("format") =~ m/video/  ) {
+        if ( $doc->is_set("format") &&  ( $doc->get_value("format") =~ m/image/ || $doc->get_value("format") =~ m/video/  ) ) {
 			$page->appendChild( $doc->render_citation( "summary_page_doc_visual_preview", params => {} ) );
 			last;
 		}
